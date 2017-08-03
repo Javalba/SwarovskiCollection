@@ -1,0 +1,21 @@
+{
+  "name": "swarovskicollection",
+  "description": "swarovski collection 4 fun",
+  "main": "",
+  "authors": [
+    "Javier Armero <Javalba90@gmail.com>"
+  ],
+  "license": "MIT",
+  "homepage": "",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "normalize-css": "^7.0.0",
+    "font-awesome": "Font-Awesome#^4.7.0"
+  }
+}
