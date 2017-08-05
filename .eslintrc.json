@@ -1,0 +1,7 @@
+{
+/*   "extends": "airbnb-base",
+"linebreak-style": [0,"unix"] */
+"parserOptions": {
+   "ecmaVersion": 6
+ }
+}
