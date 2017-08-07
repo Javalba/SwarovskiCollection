@@ -3,27 +3,32 @@ var router = express.Router();
 const passport = require('passport');
 
 router.get('/login', (req, res) => {
-    console.log('RRRRRRRRRRRRRRRRRRrequest:\n'+JSON.stringify(req.session));
-    res.render('auth/login');
-});
+    /*     console.log('RRRRRRRRRRRRRRRRRRrequest:\n' + JSON.stringify(req.session));
+     */
+    res.render('auth/login', {
+      errorMessage: req.flash('errorMsg')
+    });
+  })
 
-router.post('/login', passport.authenticate('local-login', {
-  successRedirect : '/',
-  failureRedirect : '/login'
-}));
+  .post('/login', passport.authenticate('local-login', {
+    successRedirect: '/',
+    failureRedirect: '/login',
+    failureFlash: true,
+    successFlash: true
+  }));
 
 router.get('/signup', (req, res, next) => {
-  res.render('auth/signup', {
-    errorMsg: req.flash('errorMsg')
-  });
-});
+    res.render('auth/signup', {
+      errorMsg: req.flash('errorMsg')
+    });
+  })
 
-router.post('/signup', passport.authenticate('local-signup', {
-  successRedirect: '/',
-  failureRedirect: ('/signup'),
-  failureFlash: true,
-  successFlash: true
-}));
+  .post('/signup', passport.authenticate('local-signup', {
+    successRedirect: '/login',
+    failureRedirect: ('/signup'),
+    failureFlash: true,
+    successFlash: true
+  }));
 
 router.get('/logout', (req, res) => {
   req.logout();

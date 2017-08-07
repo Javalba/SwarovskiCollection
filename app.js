@@ -66,7 +66,9 @@ app.use(session({
   secret: 'swarovskiproject1',
   resave: true,
   saveUninitialized: true,
-  cookie: { maxAge: 60000 },
+  cookie: {
+    maxAge: 60000
+  },
   store: new MongoStore({
     mongooseConnection: mongoose.connection,
     ttl: 6 * 60 * 60 // (1/4) day
@@ -78,12 +80,12 @@ app.use(flash());
 
 /*SESSION */
 passport.serializeUser((user, cb) => {
-  console.log('serialize user:', user);
+  //console.log('serialize user:', user);
   cb(null, user._id);
 });
 
 passport.deserializeUser((id, cb) => {
-  console.log('desserialize id:', id);
+  //console.log('desserialize id:', id);
 
   User.findOne({
     '_id': id
@@ -159,37 +161,41 @@ passport.use('local-signup', new LocalStrategy({
     });
   }));
 
-// login
+// Login
 passport.use('local-login', new LocalStrategy({
-  usernameField: 'email',
-}, (email, password, next) => {
+  passReqToCallback: true,
+  usernameField: 'email'
+}, (req, email, password, next) => {
+  console.log(`LOCAL-LOGIN`);
   User.findOne({
     email
   }, (err, user) => {
     if (err) {
-      return next(err);
+      let key = 'errorMsg',
+        msg = 'Error, try again';
+      return next(err, req.flash(key, msg));
     }
     if (!user) {
-      return next(null, false, {
-        message: "Incorrect email"
-      });
+      let key = 'errorMsg',
+        msg = `${email} doesn't exist, sign up or try again`;
+      return next(null, false, req.flash(key, msg));
     }
     if (!bcrypt.compareSync(password, user.password)) {
-      return next(null, false, {
-        message: "Incorrect password"
-      });
+      let key = 'errorMsg',
+        msg = `Incorrect password, try again`;
+      return next(null, false, req.flash(key, msg));
     }
-    console.log(`user---->${user}`);
     return next(null, user);
   });
 }));
+
 
 app.use(passport.initialize());
 app.use(passport.session());
 
 
 app.use((req, res, next) => {
-  if (typeof (req.user) !== "undefined") {
+  if (typeof (req.user) !== 'undefined') {
     res.locals.userSignedIn = true;
   } else {
     res.locals.userSignedIn = false;
