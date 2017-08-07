@@ -1,1 +1,17 @@
 <!-- Landing page & User page -->
+
+  <% if (user) { %>
+    <h2>PRIVATE PAGE</h2>
+    <ul>
+      <li>
+        <a href="/private">Go to your private page</a>
+      </li>
+    </ul>
+    <div>
+      <p>Hello,
+        <%=user.email %>!</p>
+    </div>
+    <% } else{ %>
+      <p>Hello!, Log in to view your profile</p>
+
+      <%} %>

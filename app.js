@@ -64,32 +64,37 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use(session({
   secret: 'swarovskiproject1',
-  resave: false,
+  resave: true,
   saveUninitialized: true,
+  cookie: { maxAge: 60000 },
   store: new MongoStore({
-    mongooseConnection: mongoose.connection
+    mongooseConnection: mongoose.connection,
+    ttl: 6 * 60 * 60 // (1/4) day
   })
 }));
 
 //flash
 app.use(flash());
 
-console.log(`LLEGA 1`);
-
-//AUTHORIZATION & SIGNUP & LOGIN
-// NEW
+/*SESSION */
 passport.serializeUser((user, cb) => {
-  cb(null, user.id);
+  console.log('serialize user:', user);
+  cb(null, user._id);
 });
 
 passport.deserializeUser((id, cb) => {
-  User.findById(id, (err, user) => {
+  console.log('desserialize id:', id);
+
+  User.findOne({
+    '_id': id
+  }, (err, user) => {
     if (err) {
       return cb(err);
     }
     cb(null, user);
   });
 });
+
 
 // Signing Up
 /**
@@ -100,11 +105,11 @@ passport.use('local-signup', new LocalStrategy({
     passReqToCallback: true,
     usernameField: 'email' // change the defaults username parameter
   },
-  (req, username, password, next) => {
+  (req, email, password, next) => {
     // To avoid race conditions
     process.nextTick(() => {
       User.findOne({
-        'email': username
+        'email': email
       }, (err, user) => {
         if (err) {
           let key = 'errorMsg',
@@ -113,7 +118,7 @@ passport.use('local-signup', new LocalStrategy({
         }
         if (user) {
           let key = 'errorMsg',
-            msg = `${username} is already taken. Plase, try another one`;
+            msg = `${email} is already taken. Plase, try another one`;
           return next(null, false, req.flash(key, msg));
         } else {
           // Destructure the body
@@ -153,6 +158,31 @@ passport.use('local-signup', new LocalStrategy({
       });
     });
   }));
+
+// login
+passport.use('local-login', new LocalStrategy({
+  usernameField: 'email',
+}, (email, password, next) => {
+  User.findOne({
+    email
+  }, (err, user) => {
+    if (err) {
+      return next(err);
+    }
+    if (!user) {
+      return next(null, false, {
+        message: "Incorrect email"
+      });
+    }
+    if (!bcrypt.compareSync(password, user.password)) {
+      return next(null, false, {
+        message: "Incorrect password"
+      });
+    }
+    console.log(`user---->${user}`);
+    return next(null, user);
+  });
+}));
 
 app.use(passport.initialize());
 app.use(passport.session());

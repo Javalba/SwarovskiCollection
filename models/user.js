@@ -14,6 +14,8 @@ const UserSchema = new Schema({
   },
   birthday: Date,
   password: String
+}, {
+  timestamps: { createdAt: 'created_at', updatedAt: 'updated_at' }
 });
 
 const User = mongoose.model('User', UserSchema);
