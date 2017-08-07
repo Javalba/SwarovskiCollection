@@ -12,14 +12,15 @@ var flash = require('connect-flash');
 
 
 //Authentication & Authorization modules
-const LocalStrategy = require('passport-local').Strategy;
+const LocalStrategy = require('passport-local')
+  .Strategy;
 const bcrypt = require('bcrypt');
 const passport = require('passport');
 const session = require('express-session');
 const MongoStore = require('connect-mongo')(session);
 
 // Mongoose connection configuration
-mongoose.connect("mongodb://localhost/swarovski");
+mongoose.connect('mongodb://localhost/swarovski');
 
 
 //routes path's
@@ -53,8 +54,27 @@ app.use(sassMiddleware({
   sourceMap: true
 }));
 app.use(express.static(path.join(__dirname, 'public')));
+
+//SESSION 
+/* app.use(session({
+  secret: 'our-passport-local-strategy-app',
+  resave: true,
+  saveUninitialized: true
+})); */
+
+app.use(session({
+  secret: 'swarovskiproject1',
+  resave: false,
+  saveUninitialized: true,
+  store: new MongoStore({
+    mongooseConnection: mongoose.connection
+  })
+}));
+
+//flash
 app.use(flash());
 
+console.log(`LLEGA 1`);
 
 //AUTHORIZATION & SIGNUP & LOGIN
 // NEW
@@ -64,60 +84,75 @@ passport.serializeUser((user, cb) => {
 
 passport.deserializeUser((id, cb) => {
   User.findById(id, (err, user) => {
-    if (err) { return cb(err); }
+    if (err) {
+      return cb(err);
+    }
     cb(null, user);
   });
 });
 
 // Signing Up
-passport.use('local-signup', new LocalStrategy(
-  { passReqToCallback: true },
+/**
+ * LocalStrategy expects to find credentials in parameters named 'username' and 'password'.
+ * 
+ */
+passport.use('local-signup', new LocalStrategy({
+    passReqToCallback: true,
+    usernameField: 'email' // change the defaults username parameter
+  },
   (req, username, password, next) => {
     // To avoid race conditions
     process.nextTick(() => {
-        User.findOne({
-            'username': username
-        }, (err, user) => {
-            if (err){ return next(err); }
+      User.findOne({
+        'email': username
+      }, (err, user) => {
+        if (err) {
+          let key = 'errorMsg',
+            msg = 'Something wrong, try again!';
+          return next(err, req.flash(key, msg));
+        }
+        if (user) {
+          let key = 'errorMsg',
+            msg = `${username} is already taken. Plase, try another one`;
+          return next(null, false, req.flash(key, msg));
+        } else {
+          // Destructure the body
+          const {
+            email,
+            password,
+            avatar,
+            name,
+            surname,
+            address,
+            city,
+            country,
+            birthday
+          } = req.body;
+          const hashPass = bcrypt.hashSync(password, bcrypt.genSaltSync(8), null);
+          const newUser = new User({
+            email,
+            password: hashPass,
+            avatar,
+            name,
+            surname,
+            address,
+            city,
+            country,
+            birthday
+          });
 
-            if (user) {
-                return next(null, false);
-            } else {
-                // Destructure the body
-                const { username, email, description, password } = req.body;
-                const hashPass = bcrypt.hashSync(password, bcrypt.genSaltSync(8), null);
-                const newUser = new User({
-                  username,
-                  email,
-                  description,
-                  password: hashPass
-                });
-
-                newUser.save((err) => {
-                    if (err){ next(err); }
-                    return next(null, newUser);
-                });
+          newUser.save((err) => {
+            if (err) {
+              next(err);
             }
-        });
+            let key = 'message',
+              msg = `Thanks! ${newUser.email} has successfully signed up!`;
+            return next(null, newUser, req.flash(key, msg));
+          });
+        }
+      });
     });
-}));
-
-// Login
-passport.use('local-login', new LocalStrategy((username, password, next) => {
-  User.findOne({ username }, (err, user) => {
-    if (err) {
-      return next(err);
-    }
-    if (!user) {
-      return next(null, false, { message: "Incorrect username" });
-    }
-    if (!bcrypt.compareSync(password, user.password)) {
-      return next(null, false, { message: "Incorrect password" });
-    }
-
-    return next(null, user);
-  });
-}));
+  }));
 
 app.use(passport.initialize());
 app.use(passport.session());
