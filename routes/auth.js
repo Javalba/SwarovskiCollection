@@ -30,7 +30,7 @@ router.get('/signup', (req, res, next) => {
     successFlash: true
   }));
 
-router.get('/logout', (req, res) => {
+router.get('/logout', (req, res, next) => {
   req.logout();
   res.redirect('/login');
 });
