@@ -67,7 +67,7 @@ app.use(session({
   resave: true,
   saveUninitialized: true,
   cookie: {
-    maxAge: 60000
+    maxAge: 300000
   },
   store: new MongoStore({
     mongooseConnection: mongoose.connection,
