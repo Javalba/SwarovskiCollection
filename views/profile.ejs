@@ -5,14 +5,14 @@
 <div class="container">
   <div class="row">
     <div class="col-sm-6 centered-form">
-      <form id="form" action="/signup" method="POST">
+      <form id="form" action="/users/<%=user.email %>" method="POST">
         <h2>PROFILE</h2>
         <br><br>
         <label for="username">Email</label><br>
         <input type="email" id="email2" name="email" value='<%=user.email %>'>
         <br><br>
         <label for="password">New Password</label><br>
-        <input type="password" id="password" name="password">
+        <input type="password" id="password" name="password" value='<%=user.password %>'>
         <br><br>
         <label for="avatar">Avatar</label><br>
         <input type="text" id="avatar" name="avatar" value='<%=user.avatar %>'>

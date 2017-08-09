@@ -35,11 +35,6 @@ router.get('/logout', (req, res, next) => {
   res.redirect('/login');
 });
 
-  router.get('/:email', function(req, res, next) {
-    console.log('profile route');
-  res.render('profile',{ user: req.user });
-}); 
-
 
 module.exports = router;
 
