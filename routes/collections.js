@@ -8,30 +8,30 @@ const {
 
 //Show only collections with the same owner 
 router.get('/', ensureLoggedIn('/login'), (req, res) => {
-/*   Collection
-    .find({})
-    .populate('owner')
+  /*   Collection
+      .find({})
+      .populate('owner')
+      .exec((err, collections) => {
+        res.render('collections/show', {
+          errorMessage: req.flash('errorMsg'),
+          user: req.user,
+          collections,
+        });
+      }); */
+
+  Collection.find({
+      owner: {
+        $in: req.user
+      }
+    })
     .exec((err, collections) => {
+      console.log(`collections -->${collections}`);
       res.render('collections/show', {
         errorMessage: req.flash('errorMsg'),
         user: req.user,
         collections,
       });
-    }); */
-    
-Collection.find({
-    owner: {
-      $in: req.user
-    }
-  })
-  .exec((err, collections) => {
-    console.log(`collections -->${collections}`);
-    res.render('collections/show', {
-      errorMessage: req.flash('errorMsg'),
-      user: req.user,
-      collections,
     });
-  });
 });
 
 
@@ -62,6 +62,17 @@ router.post('/new', ensureLoggedIn('/login'), (req, res, next) => {
   });
 });
 
+router.get('/:id', ensureLoggedIn('/login'), (req, res, next) => {
+  Collection.findById(req.params.id, (err, collection) => {
+    if (err) {
+      return next(err);
+    }
+    res.render('collections/showOne', {
+      user: req.user,
+      collection
+    });
+  });
+});
 
 module.exports = router;
 
