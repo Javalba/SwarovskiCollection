@@ -27,8 +27,6 @@ mongoose.connect('mongodb://localhost/swarovski');
 const index = require('./routes/index');
 const auth = require('./routes/auth');
 const users = require('./routes/users');
-const collections = require('./routes/collections');
-
 
 const app = express();
 
@@ -212,7 +210,6 @@ app.use((req, res, next) => {
 app.use('/', index);
 app.use('/', auth);
 app.use('/users', users);
-app.use('/collections', collections);
 
 
 // catch 404 and forward to error handler
