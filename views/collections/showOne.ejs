@@ -12,6 +12,10 @@
 <div class=container>
   <button class="btn">Save changes</button>
   </form>
+  <form action="/collections/<%= collection._id %>/delete" method="POST">
+    <button>Delete Product</button>
+  </form>
+
 </div>
 <div class="container">
   <div class="products">

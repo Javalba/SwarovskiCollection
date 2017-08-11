@@ -98,6 +98,17 @@ router.post('/:id', ensureLoggedIn('login'), (req, res, next) => {
 });
 
 
+router.post('/:id/delete', ensureLoggedIn('login'), (req, res, next) => {
+    Collection.findByIdAndRemove(req.params.id, (err, collection) => {
+      if (err) {
+        return next(err);
+      }
+    return res.redirect('/collections');
+    });
 
-module.exports = router;
+  }),
+
+
+
+  module.exports = router;
 
