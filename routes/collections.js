@@ -25,7 +25,7 @@ router.get('/', ensureLoggedIn('/login'), (req, res) => {
       }
     })
     .exec((err, collections) => {
-      console.log(`collections -->${collections}`);
+      //console.log(`collections -->${collections}`);
       res.render('collections/show', {
         errorMessage: req.flash('errorMsg'),
         user: req.user,
@@ -67,12 +67,37 @@ router.get('/:id', ensureLoggedIn('/login'), (req, res, next) => {
     if (err) {
       return next(err);
     }
+    console.log(`collectionId--------> ${collection}`);
     res.render('collections/showOne', {
       user: req.user,
       collection
     });
   });
 });
+
+//req.params.id --> request :id 
+router.post('/:id', ensureLoggedIn('login'), (req, res, next) => {
+  console.log(`LLEGA A POST COLLECTIONS/ID`);
+  const updates = {
+    name: req.body.collectionName,
+    description: req.body.collectionDesc
+  };
+  console.log(`updates-->${updates}`);
+  Collection.findByIdAndUpdate(req.params.id, updates, (err, collection) => {
+    if (err) {
+      return res.render('/', {
+        collection,
+        errors: collection.errors
+      });
+    }
+    if (!collection) {
+      return next(new Error('404'));
+    }
+    return res.redirect(`/collections/${collection._id}`);
+  });
+});
+
+
 
 module.exports = router;
 
