@@ -4,6 +4,7 @@ $medium: '@media (max-width: 1047px)';
 $large: '@media (min-width: 1048px)';
 
 body {
+  margin: 0 auto;
   padding: 50px;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
 }
@@ -54,4 +55,9 @@ a {
   background: #fff;
   color: #43a3e6;
   transition: .3s ease background;
+}
+
+
+footer{
+  margin: 0 auto;
 }

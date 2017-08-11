@@ -1,0 +1,32 @@
+<!-- views/authentication/signup.ejs -->
+<div class="container">
+  <form id="form" action="/collections/new" method="POST">
+    <h2>NEW COLLECTION</h2>
+    <br><br>
+    <label>Owner</label><br>
+    <strong><%= user.email%></strong>
+    <br><br>
+
+    <br><br>
+    <label for="name">Collection Name</label><br>
+    <input type="text" id="name" name="name">
+    <br><br>
+
+    <br><br>
+    <label for="description">Description</label><br>
+    <input type="text" id="description" name="description">
+    <br><br>
+
+
+    <button>Create collection</button>
+  </form>
+  <% if (typeof errorMsg !== "undefined") { %>
+    <% console.log(`-------------->${errorMsg}`)%>
+      <div class="error-message">
+        <p>
+          <%= errorMsg %>
+        </p>
+      </div>
+      <% } %>
+</div>
+

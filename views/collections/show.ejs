@@ -1,0 +1,35 @@
+<div class=container>
+  <h1>My collections</h1>
+</div>
+<li class="topMenu_item"><a class="topMenu_button" href="/collections/new">Create new collection</a></li>
+<% if(!collections){ %>
+  <p>Your list is empty, try to create a new collection!</p>
+  <% } else{ %>
+    <div class="container">
+      <% collections.forEach((collection) => { %>
+        <div class="collection">
+          <ul class="collection-ul">
+            <li class="collection-li">
+              <div class="collection-title">
+                <h1>
+                  <a class="title" href="/collection/<%= collection._id %>">
+            <strong><%= collection.name %></strong>
+          </a><br>
+                </h1>
+                <p class="light-text description">
+                  <%= collection.description %>
+                </p>
+              </div>
+              <div class="collection-element">
+                <p>
+                  <!-- ToDo: products-->
+                  Products
+                </p>
+              </div>
+        </div>
+        <%  }) %>
+          </li>
+          </ul>
+    </div>
+    <% } %>
+
