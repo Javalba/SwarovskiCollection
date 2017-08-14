@@ -58,6 +58,13 @@ a {
 }
 
 
-footer{
+footer {
   margin: 0 auto;
+}
+
+.figures {
+
+  &-ul{
+    border: 1px solid black;
+    }
 }

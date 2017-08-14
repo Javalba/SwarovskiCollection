@@ -1,0 +1,71 @@
+<!-- views/authentication/signup.ejs -->
+<div class="container">
+  <form id="form" action="/collections/<%=collection._id%>/figures/new" method="POST">
+    <h2>New Figure</h2>
+    <br><br>
+    <label>Owner</label><br>
+    <strong><%=collection.owner.email%></strong>
+    <br><br>
+
+    <br><br>
+    <label for="name">Figure Name</label><br>
+    <input type="text" id="name" name="name">
+    <br><br>
+
+        <br><br>
+    <label for="name">Available</label><br>
+    <input type="date" id="available" name="available">
+    <br><br>
+
+        <br><br>
+    <label for="designer">Designer</label><br>
+    <input type="text" id="designer" name="designer">
+    <br><br>
+
+        <br><br>
+    <label for="number">Number</label><br>
+    <input type="number" id="number" name="number">
+    <br><br>
+
+        <br><br>
+    <label for="collec">collection</label><br>
+    <input type="text" id="collec" name="collec">
+    <br><br>
+
+        <br><br>
+    <label for="adquisitionPrice">Adquisition Price</label><br>
+    <input type="number" id="adquisitionPrice" name="adquisitionPrice">
+    <br><br>
+
+        <br><br>
+    <label for="personalNotes">Personal Notes</label><br>
+    <input type="text" id="personalNotes" name="personalNotes">
+    <br><br>
+
+        <br><br>
+    <label for="image">Image</label><br>
+    <input type="text" id="image" name="image">
+    <br><br>
+
+        <br><br>
+    <label for="favorite">Favorite</label><br>
+    <input type="checkbox" id="favorite" name="favorite">
+    <br><br>
+
+        <br><br>
+    <label for="sell">Sell</label><br>
+    <input type="checkbox" id="sell" name="sell">
+    <br><br>
+
+    <button>Create figure</button>
+  </form>
+  <% if (typeof errorMsg !== "undefined") { %>
+    <% console.log(`-------------->${errorMsg}`)%>
+      <div class="error-message">
+        <p>
+          <%= errorMsg %>
+        </p>
+      </div>
+      <% } %>
+</div>
+

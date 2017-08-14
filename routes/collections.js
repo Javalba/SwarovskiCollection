@@ -2,22 +2,13 @@ var express = require('express');
 var router = express.Router();
 const passport = require('passport');
 const Collection = require('../models/collection');
+const Figure = require('../models/figure');
 const {
   ensureLoggedIn
 } = require('connect-ensure-login');
 
 //Show only collections with the same owner 
 router.get('/', ensureLoggedIn('/login'), (req, res) => {
-  /*   Collection
-      .find({})
-      .populate('owner')
-      .exec((err, collections) => {
-        res.render('collections/show', {
-          errorMessage: req.flash('errorMsg'),
-          user: req.user,
-          collections,
-        });
-      }); */
 
   Collection.find({
       owner: {
@@ -25,7 +16,7 @@ router.get('/', ensureLoggedIn('/login'), (req, res) => {
       }
     })
     .exec((err, collections) => {
-      //console.log(`collections -->${collections}`);
+      console.log(`collections -->${collections}`);
       res.render('collections/show', {
         errorMessage: req.flash('errorMsg'),
         user: req.user,
@@ -63,16 +54,19 @@ router.post('/new', ensureLoggedIn('/login'), (req, res, next) => {
 });
 
 router.get('/:id', ensureLoggedIn('/login'), (req, res, next) => {
-  Collection.findById(req.params.id, (err, collection) => {
-    if (err) {
-      return next(err);
-    }
-    console.log(`collectionId--------> ${collection}`);
-    res.render('collections/showOne', {
-      user: req.user,
-      collection
+  Collection
+    .findById(req.params.id)
+    .populate('figures')
+    .exec((err, collection) => {
+      if (err) {
+        return next(err);
+      }
+      console.log(`collectionId--------> ${collection}`);
+      res.render('collections/showOne', {
+        user: req.user,
+        collection
+      });
     });
-  });
 });
 
 //req.params.id --> request :id 
@@ -103,12 +97,73 @@ router.post('/:id/delete', ensureLoggedIn('login'), (req, res, next) => {
       if (err) {
         return next(err);
       }
-    return res.redirect('/collections');
+      return res.redirect('/collections');
     });
-
   }),
 
+  router.get('/:id/figures/new', ensureLoggedIn('/login'), (req, res, next) => {
+    Collection
+      .findById(req.params.id)
+      .populate('owner')
+      .exec((err, collection) => {
+        if (err || !collection) {
+          return next(new Error('404'));
+        }
+        res.render('figures/new', {
+          collection
+        });
+      });
+  });
+
+router.post('/:id/figures/new', ensureLoggedIn('/login'), (req, res, next) => {
+  console.log(`ENTRANDOOOOOOOOOOOOOOOO AL POST`);
+  const newFigure = new Figure({
+    owner: req.user._id,
+    name: req.body.name,
+    available: req.body.available,
+    designer: req.body.designer,
+    number: req.body.number,
+    collec: req.body.collec,
+    adquisitionPrice: req.body.adquisitionPrice,
+    personalNotes: req.body.personalNotes,
+    image: req.body.image,
+    favorite: req.body.favorite,
+    sell: req.body.sell,
+    // We're assuming a user is logged in here
+    // If they aren't, this will throw an error
+  });
+  newFigure.save((err) => {
+    if (err) {
+      res.render('error');
+    } else {
+      /*       res.redirect(`/collections/${newCollection._id}`);
+       */
+      Collection
+        .findById(req.params.id)
+        .populate('figures')
+        .exec((err, collection) => {
+          if (err) {
+            return next(err);
+          } else {
+            console.log(`Collection figures before ----------------> ${collection.figures}`);
+            collection.figures.push(newFigure._id);
+            /*             console.log("newFigure--->: " + JSON.stringify(newFigure, null, 4));
+             */
+            collection.save((err) => {
+              if (err) {
+                return next(err);
+              } else {
+                console.log(`Collection figures after ----------------> ${collection.figures}`);
+
+                return res.redirect(`/collections/${req.params.id}`);
+              }
+            });
+          }
+        });
+    }
+  });
+});
 
 
-  module.exports = router;
+module.exports = router;
 

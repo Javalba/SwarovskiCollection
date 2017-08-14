@@ -16,13 +16,52 @@
     <button>Delete Product</button>
   </form>
 
+  <li><a class="btn" href="/collections/<%= collection._id %>/figures/new">Add Figure</a></li>
+
 </div>
 <div class="container">
-  <div class="products">
-    <p>
-      <!-- ToDo: products-->
-      Products
-    </p>
+  <div class="figures">
+    <% collection.figures.forEach( (figure) => { %>
+      <ul class=figures-ul>
+        <br>
+        <li>
+          <%= figure.name %>
+        </li>
+        <li class="figures-li">
+          <%= figure.available %>
+        </li>
+        <li class="figures-li">
+          <%= figure.designer %>
+        </li>
+        <li class="figures-li">
+          <%= figure.number %>
+        </li>
+        <li class="figures-li">
+          <%= figure.collection %>
+        </li>
+        <li class="figures-li">
+          <%= figure.adquisitionPrice %>
+        </li>
+        <li class="figures-li">
+          <%= figure.personalNotes %>
+        </li>
+        <li class="figures-li">
+          <%= figure.image %>
+        </li>
+        <li class="figures-li">
+          <%= figure.favorite %>
+        </li>
+        <li class="figures-li">
+          <%= figure.sell %>
+        </li>
+      </ul>
+
+      <% }) %>
+
+        <p>
+          <!-- ToDo: products-->
+
+        </p>
   </div>
 </div>
 </div>

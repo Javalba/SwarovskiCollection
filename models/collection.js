@@ -9,6 +9,10 @@ const CollectionSchema = new Schema({
     ref: 'User',
     required: true
   },
+  figures: [{
+    type: Schema.Types.ObjectId,
+    ref: 'Figure'
+  }],
 }, {
   timestamps: {
     createdAt: 'created_at',
@@ -17,5 +21,3 @@ const CollectionSchema = new Schema({
 });
 
 module.exports = mongoose.model('Collection', CollectionSchema);
-
-
