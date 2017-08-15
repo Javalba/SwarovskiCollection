@@ -40,7 +40,7 @@ router.post('/new', ensureLoggedIn('/login'), (req, res, next) => {
     // If they aren't, this will throw an error
     owner: req.user._id
   });
-  console.log("newCollection--->: " + JSON.stringify(newCollection, null, 4));
+  //console.log("newCollection--->: " + JSON.stringify(newCollection, null, 4));
 
   newCollection.save((err) => {
     if (err) {
@@ -97,9 +97,18 @@ router.post('/:id/delete', ensureLoggedIn('login'), (req, res, next) => {
       if (err) {
         return next(err);
       }
+      /**
+       * ToDo: Delete vinculated figures.
+       */
       return res.redirect('/collections');
     });
   }),
+
+  /**
+   * 
+   * FIGURES
+   *
+   * */
 
   router.get('/:id/figures/new', ensureLoggedIn('/login'), (req, res, next) => {
     Collection
@@ -164,6 +173,73 @@ router.post('/:id/figures/new', ensureLoggedIn('/login'), (req, res, next) => {
   });
 });
 
+router.get('/:idCol/figures/:idFig', ensureLoggedIn('/login'), (req, res, next) => {
+  console.log(`****************************************************** col ${req.params.idCol} - fig${req.params.idFig} `);
+  Collection
+    .findById(req.params.idCol)
+    
+    .populate({
+      path: 'figures',
+      match: {
+        _id: req.params.idFig
+      },
+      options: {
+        limit: 1
+      }
+    })
+    .exec((err, collection) => {
+      if (err) {
+        return next(err);
+      }
+/*       console.log(`collectionResult----------> ${collection.figures[0].number}`);
+ */      res.render('figures/showOne', {
+        user: req.user,
+        collection
+      });
+    });
+});
 
-module.exports = router;
+router.post('/:idCol/figures/:idFig', ensureLoggedIn('login'), (req, res, next) => {
+  console.log(`LLEGA A POST FIGURES/ID`);
+  const updates = {
+    name: req.body.name,
+    available: req.body.available,
+    designer: req.body.designer,
+    number: req.body.number,
+    collec: req.body.collec,
+    adquisitionPrice: req.body.adquisitionPrice,
+    personalNotes: req.body.personalNotes,
+    image: req.body.image,
+    favorite: req.body.favorite,
+    sell: req.body.sell,
+  };
+  console.log(`updates-->${updates}`);
+  Figure.findByIdAndUpdate(req.params.idFig, updates, (err, figure) => {
+    if (err) {
+      return res.render('/', {
+        figure,
+        errors: figure.errors
+      });
+    }
+    if (!figure) {
+      return next(new Error('404'));
+    }
+    return res.redirect(`collection/${req.params.idCol}/figures/${figure._id}`); //falla aqui
+  });
+});
+
+
+router.post('/:id/delete', ensureLoggedIn('login'), (req, res, next) => {
+    Collection.findByIdAndRemove(req.params.id, (err, collection) => {
+      if (err) {
+        return next(err);
+      }
+      /**
+       * ToDo: Delete vinculated figures.
+       */
+      return res.redirect('/collections');
+    });
+  }),
+
+  module.exports = router;
 

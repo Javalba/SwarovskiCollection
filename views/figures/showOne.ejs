@@ -1,0 +1,82 @@
+<div class="container">
+  <form id="form" action="/collections/<%=collection._id%>/figures/<%=collection.figures[0]._id%>" method="POST">
+
+    <h2>Collection</h2>
+    <br>
+    <strong><%=collection.name%></strong>
+    <br><br>
+    <label>Owner</label><br>
+    <strong><%=collection.owner.email%></strong>
+
+    <h2>Edit Figure</h2>
+    <br><br>
+    <label for="name">Figure Name</label><br>
+    <input type="text" id="name" name="name" value="<%=collection.figures[0].name%>">
+    <br><br>
+
+    <br><br>
+    <label for="available">Available</label><br>
+    <input type="date" id="available" name="available" value="<%=collection.figures[0].available%>">
+    <br><br>
+
+    <br><br>
+    <label for="designer">Designer</label><br>
+    <input type="text" id="designer" name="designer" value="<%=collection.figures[0].designer%>">
+    <br><br>
+
+    <br><br>
+    <label for="number">Number</label><br>
+    <input type="number" id="number" name="number" value="<%=collection.figures[0].number%>">
+    <br><br>
+
+    <br><br>
+    <label for="collec">collection</label><br>
+    <input type="text" id="collec" name="collec" value="<%=collection.figures[0].collection%>">
+    <br><br>
+
+    <br><br>
+    <label for="adquisitionPrice">Adquisition Price</label><br>
+    <input type="number" id="adquisitionPrice" name="adquisitionPrice" value="<%=collection.figures[0].adquisitionPrice%>">
+    <br><br>
+
+    <br><br>
+    <label for="personalNotes">Personal Notes</label><br>
+    <input type="text" id="personalNotes" name="personalNotes" value="<%=collection.figures[0].personalNotes%>">
+    <br><br>
+
+    <br><br>
+    <label for="image">Image</label><br>
+    <input type="text" id="image" name="image" value="<%=collection.figures[0].image%>">
+    <br><br>
+
+    <br><br>
+    <label for="favorite">Favorite</label><br>
+    <input type="checkbox" id="favorite" name="favorite" value="<%=collection.figures[0].favorite%>">
+    <br><br>
+
+    <br><br>
+    <label for="sell">Sell</label><br>
+    <input type="checkbox" id="sell" name="sell" value="<%=collection.figures[0].sell%>">
+    <br><br>
+
+    <div class=container-options>
+      <button class="btn">Save changes</button>
+  </form>
+
+  <form action="/collections/<%= collection._id %>/figures/<%=collection.figures[0]._id%>/delete" method="POST">
+    <button>Delete Figure</button>
+  </form>
+
+  <li><a class="btn" href="/collections/<%= collection._id %>">Back</a></li>
+
+  </div>
+  <% if (typeof errorMsg !== "undefined") { %>
+    <% console.log(`-------------->${errorMsg}`)%>
+      <div class="error-message">
+        <p>
+          <%= errorMsg %>
+        </p>
+      </div>
+      <% } %>
+</div>
+

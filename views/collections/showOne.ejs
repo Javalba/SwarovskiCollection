@@ -9,7 +9,7 @@
       <input type="text" id="collection_desc" name="collectionDesc" value='<%=collection.description%>'>
     </div>
 </div>
-<div class=container>
+<div class=container-options>
   <button class="btn">Save changes</button>
   </form>
   <form action="/collections/<%= collection._id %>/delete" method="POST">
@@ -25,42 +25,50 @@
       <ul class=figures-ul>
         <br>
         <li>
-          <%= figure.name %>
+          <a class="title" href="/collections/<%= collection._id %>/figures/<%=figure._id%>">
+            <span>Name: </span>
+            <%= figure.name %>
+          </a>
         </li>
         <li class="figures-li">
+          <span>Available: </span>
           <%= figure.available %>
         </li>
         <li class="figures-li">
+          <span>Designer: </span>
           <%= figure.designer %>
         </li>
         <li class="figures-li">
+          <span>Number: </span>
           <%= figure.number %>
         </li>
         <li class="figures-li">
+          <span>Collection: </span>
           <%= figure.collection %>
         </li>
         <li class="figures-li">
+          <span>Adquisition Price: </span>
           <%= figure.adquisitionPrice %>
         </li>
         <li class="figures-li">
+          <span>Personal Notes: </span>
           <%= figure.personalNotes %>
         </li>
         <li class="figures-li">
           <%= figure.image %>
         </li>
-        <li class="figures-li">
+        <li class="figures-li chk">
           <%= figure.favorite %>
         </li>
-        <li class="figures-li">
+        <li class="figures-li chk ">
           <%= figure.sell %>
         </li>
       </ul>
-
+      <div class="figures-options">
+      </div>
       <% }) %>
-
         <p>
           <!-- ToDo: products-->
-
         </p>
   </div>
 </div>
