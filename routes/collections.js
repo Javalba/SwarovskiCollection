@@ -177,7 +177,7 @@ router.get('/:idCol/figures/:idFig', ensureLoggedIn('/login'), (req, res, next) 
   console.log(`****************************************************** col ${req.params.idCol} - fig${req.params.idFig} `);
   Collection
     .findById(req.params.idCol)
-    
+
     .populate({
       path: 'figures',
       match: {
@@ -191,8 +191,9 @@ router.get('/:idCol/figures/:idFig', ensureLoggedIn('/login'), (req, res, next) 
       if (err) {
         return next(err);
       }
-/*       console.log(`collectionResult----------> ${collection.figures[0].number}`);
- */      res.render('figures/showOne', {
+      /*       console.log(`collectionResult----------> ${collection.figures[0].number}`);
+       */
+      res.render('figures/showOne', {
         user: req.user,
         collection
       });
@@ -224,7 +225,7 @@ router.post('/:idCol/figures/:idFig', ensureLoggedIn('login'), (req, res, next) 
     if (!figure) {
       return next(new Error('404'));
     }
-    return res.redirect(`collection/${req.params.idCol}/figures/${figure._id}`); //falla aqui
+    return res.redirect(`collection/${req.params.idCol}/figures/${figure._id}`);
   });
 });
 
@@ -241,5 +242,35 @@ router.post('/:id/delete', ensureLoggedIn('login'), (req, res, next) => {
     });
   }),
 
-  module.exports = router;
+
+  router.get('/:id/search', (req, res, next) => {
+    let queryRegex = new RegExp(req.query.searchTerm);
+    // We use a Regex here to find items that are similar to the search
+    // For instance if I searched "Yoga", I would then find the Yoga Mat
+    console.log(`queryRegex--> ${queryRegex}`);
+    Collection
+      .findById(req.params.id)
+      .populate({
+        path: 'figures',
+        match: {
+          name: queryRegex
+        }
+      })
+      .exec((err, collection) => {
+        if (err) {
+          return next(err);
+        }
+        console.log(`req.user--->${req.user}`);
+        console.log(`collection--------> ${collection}`);
+/*         let itemsFound = collection.count('figures');
+                console.log(`itemsFound--------> ${collection.count('figures')}`); */
+        res.render('collections/showOne', {
+          user: req.user,
+          collection
+        });
+      });
+  });
+
+
+module.exports = router;
 

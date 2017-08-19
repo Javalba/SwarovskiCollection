@@ -13,10 +13,25 @@
   <button class="btn">Save changes</button>
   </form>
   <form action="/collections/<%= collection._id %>/delete" method="POST">
-    <button>Delete Product</button>
+    <button>Delete Collection</button>
   </form>
 
   <li><a class="btn" href="/collections/<%= collection._id %>/figures/new">Add Figure</a></li>
+
+  <div class="search-content">
+    <form action="/collections/<%= collection._id %>/search">
+      <!--  <button type="submit" class="search-submit">Submit</button>
+      <input index="q" tabindex="1" type="text" name="q" placeholder="Buscar" autocomplete="off"> -->
+      <label for="search-term">Search for an item by name</label>
+      <input type="text" name="searchTerm" id="search-term">
+
+      <button>Search</button>
+    </form>
+    <div class="search-result">
+
+    </div>
+  </div>
+
 
 </div>
 <div class="container">
