@@ -242,33 +242,119 @@ router.post('/:id/delete', ensureLoggedIn('login'), (req, res, next) => {
     });
   }),
 
-
-  router.get('/:id/search', (req, res, next) => {
-    let queryRegex = new RegExp(req.query.searchTerm);
-    // We use a Regex here to find items that are similar to the search
-    // For instance if I searched "Yoga", I would then find the Yoga Mat
+  /**
+   * Search figure by: name, designer
+   * Order figures by: Adquisition Price, asc or desc
+   */
+  router.get('/:id/search', ensureLoggedIn('login'), (req, res, next) => {
+    //ToDo: Cambiar el metodo para que la RegExp pueda aceptar dos variables por parametros
+    //iterate over object req.query
+    let searchFilter;
+    for (let param in req.query) {
+      var queryRegex = new RegExp(req.query[param]);
+      searchFilter = param;
+      console.log('searchFilter------->', searchFilter);
+    }
+    /*     let filter = {};
+        filter[searchFilter]=queryRegex; */
     console.log(`queryRegex--> ${queryRegex}`);
-    Collection
-      .findById(req.params.id)
-      .populate({
-        path: 'figures',
-        match: {
-          name: queryRegex
-        }
-      })
-      .exec((err, collection) => {
-        if (err) {
-          return next(err);
-        }
-        console.log(`req.user--->${req.user}`);
-        console.log(`collection--------> ${collection}`);
-/*         let itemsFound = collection.count('figures');
-                console.log(`itemsFound--------> ${collection.count('figures')}`); */
-        res.render('collections/showOne', {
-          user: req.user,
-          collection
-        });
-      });
+
+    switch (searchFilter) {
+      case 'name':
+        Collection
+          .findById(req.params.id)
+          .populate([{
+            path: 'figures',
+            match: {
+              //Todo: cambiar name por el parametro 'param'. Ver como se puede hacer.
+              name: queryRegex
+            }
+          }, ])
+          .exec((err, collection) => {
+            if (err) {
+              return next(err);
+            }
+            console.log(`req.user--->${req.user}`);
+            console.log(`collection--------> ${collection}`);
+            /*         let itemsFound = collection.count('figures');
+                            console.log(`itemsFound--------> ${collection.count('figures')}`); */
+            res.render('collections/showOne', {
+              user: req.user,
+              collection
+            });
+          });
+        break;
+      case 'designer':
+        Collection
+          .findById(req.params.id)
+          .populate([{
+            path: 'figures',
+            match: {
+              //Todo: cambiar name por el parametro 'param'. Ver como se puede hacer.
+              designer: queryRegex
+            }
+          }, ])
+          .exec((err, collection) => {
+            if (err) {
+              return next(err);
+            }
+            console.log(`req.user--->${req.user}`);
+            console.log(`collection--------> ${collection}`);
+            /*         let itemsFound = collection.count('figures');
+                            console.log(`itemsFound--------> ${collection.count('figures')}`); */
+            res.render('collections/showOne', {
+              user: req.user,
+              collection
+            });
+          });
+        break;
+      case 'cheapest':
+        Collection
+          .findById(req.params.id)
+          .populate({
+            path: 'figures',
+            options: {
+              sort: ({
+                adquisitionPrice: 'asc'
+              })
+            }
+          })
+          .exec((err, collection) => {
+            if (err) {
+              return next(err);
+            }
+            console.log(`collectionId--------> ${collection}`);
+            res.render('collections/showOne', {
+              user: req.user,
+              collection
+            });
+          });
+        break;
+      case 'expensive':
+        Collection
+          .findById(req.params.id)
+          .populate({
+            path: 'figures',
+            options: {
+              sort: ({
+                adquisitionPrice: 'desc'
+              })
+            }
+          })
+          .exec((err, collection) => {
+            if (err) {
+              return next(err);
+            }
+            console.log(`collectionId--------> ${collection}`);
+            res.render('collections/showOne', {
+              user: req.user,
+              collection
+            });
+          });
+        break;
+      default:
+        res.redirect('collections/req.params.id');
+    }
   });
 
 

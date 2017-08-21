@@ -23,13 +23,28 @@
       <!--  <button type="submit" class="search-submit">Submit</button>
       <input index="q" tabindex="1" type="text" name="q" placeholder="Buscar" autocomplete="off"> -->
       <label for="search-term">Search for an item by name</label>
-      <input type="text" name="searchTerm" id="search-term">
-
+      <input type="text" name="name" id="search-term">
       <button>Search</button>
     </form>
-    <div class="search-result">
-
-    </div>
+    <form action="/collections/<%= collection._id %>/search">
+      <!--  <button type="submit" class="search-submit">Submit</button>
+      <input index="q" tabindex="1" type="text" name="q" placeholder="Buscar" autocomplete="off"> -->
+      <label for="search-author">Search for an item by author</label>
+      <input type="text" name="designer" id="search-author">
+      <button>Search</button>
+    </form>
+    <form action="/collections/<%= collection._id %>/search">
+      <!--  <button type="submit" class="search-submit">Submit</button>
+      <input index="q" tabindex="1" type="text" name="q" placeholder="Buscar" autocomplete="off"> -->
+      <label for="search-cheapest">Cheapest Items</label>
+      <input type="submit" name="cheapest" id="search-cheapest">
+    </form>
+    <form action="/collections/<%= collection._id %>/search">
+      <!--  <button type="submit" class="search-submit">Submit</button>
+      <input index="q" tabindex="1" type="text" name="q" placeholder="Buscar" autocomplete="off"> -->
+      <label for="search-expensive">Most Expensive Items</label>
+      <input type="submit" name="expensive" id="search-expensive">
+    </form>
   </div>
 
 
