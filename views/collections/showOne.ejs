@@ -62,7 +62,7 @@
         </li>
         <li class="figures-li">
           <span>Available: </span>
-          <%= figure.available %>
+          <%= moment(figure.available).format( 'DD/MM/YYYY') %>
         </li>
         <li class="figures-li">
           <span>Designer: </span>
@@ -78,7 +78,7 @@
         </li>
         <li class="figures-li">
           <span>Adquisition Price: </span>
-          <%= figure.adquisitionPrice %>
+          <%= `${figure.adquisitionPrice} €` %>
         </li>
         <li class="figures-li">
           <span>Personal Notes: </span>

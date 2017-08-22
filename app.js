@@ -8,6 +8,7 @@ const sassMiddleware = require('node-sass-middleware');
 const expressLayouts = require('express-ejs-layouts');
 const mongoose = require('mongoose');
 const User = require('./models/user');
+const moment = require('moment');
 var flash = require('connect-flash');
 
 
@@ -79,6 +80,7 @@ app.use(session({
 
 //flash
 app.use(flash());
+app.locals.moment = moment;
 
 /*SESSION */
 passport.serializeUser((user, cb) => {

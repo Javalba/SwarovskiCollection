@@ -119,6 +119,7 @@ router.post('/:id/delete', ensureLoggedIn('login'), (req, res, next) => {
           return next(new Error('404'));
         }
         res.render('figures/new', {
+          user: req.user,
           collection
         });
       });
@@ -191,8 +192,6 @@ router.get('/:idCol/figures/:idFig', ensureLoggedIn('/login'), (req, res, next) 
       if (err) {
         return next(err);
       }
-      /*       console.log(`collectionResult----------> ${collection.figures[0].number}`);
-       */
       res.render('figures/showOne', {
         user: req.user,
         collection
