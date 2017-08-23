@@ -1,5 +1,5 @@
 <div class="container">
-  <form id="form" action="/collections/<%=collection._id%>/figures/new" method="POST">
+  <form id="form" action="/collections/<%=collection._id%>/figures/new" method="POST" enctype="multipart/form-data">
     <h2>New Figure</h2>
     <br><br>
     <label>Owner</label><br>
@@ -43,7 +43,7 @@
 
         <br><br>
     <label for="image">Image</label><br>
-    <input type="text" id="image" name="image">
+    <input type="file" id="image" name="image">
     <br><br>
 
         <br><br>

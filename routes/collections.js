@@ -1,11 +1,15 @@
 var express = require('express');
 var router = express.Router();
-const passport = require('passport');
 const Collection = require('../models/collection');
 const Figure = require('../models/figure');
 const {
   ensureLoggedIn
 } = require('connect-ensure-login');
+var multer  = require('multer');
+// Route to upload from project base path
+const upload = multer({
+  dest: './public/uploads/'
+});
 
 //Show only collections with the same owner 
 router.get('/', ensureLoggedIn('/login'), (req, res) => {
@@ -109,7 +113,6 @@ router.post('/:id/delete', ensureLoggedIn('login'), (req, res, next) => {
    * FIGURES
    *
    * */
-
   router.get('/:id/figures/new', ensureLoggedIn('/login'), (req, res, next) => {
     Collection
       .findById(req.params.id)
@@ -125,8 +128,8 @@ router.post('/:id/delete', ensureLoggedIn('login'), (req, res, next) => {
       });
   });
 
-router.post('/:id/figures/new', ensureLoggedIn('/login'), (req, res, next) => {
-  console.log(`ENTRANDOOOOOOOOOOOOOOOO AL POST`);
+//upload.single is a Multer middleware. File upload will be handled by Multer. 
+router.post('/:id/figures/new', upload.single('image'), ensureLoggedIn('/login'), (req, res, next) => {
   const newFigure = new Figure({
     owner: req.user._id,
     name: req.body.name,
@@ -136,7 +139,7 @@ router.post('/:id/figures/new', ensureLoggedIn('/login'), (req, res, next) => {
     collec: req.body.collec,
     adquisitionPrice: req.body.adquisitionPrice,
     personalNotes: req.body.personalNotes,
-    image: req.body.image,
+    image: `/uploads/${req.file.filename}`,
     favorite: req.body.favorite,
     sell: req.body.sell,
     // We're assuming a user is logged in here
@@ -146,8 +149,6 @@ router.post('/:id/figures/new', ensureLoggedIn('/login'), (req, res, next) => {
     if (err) {
       res.render('error');
     } else {
-      /*       res.redirect(`/collections/${newCollection._id}`);
-       */
       Collection
         .findById(req.params.id)
         .populate('figures')
