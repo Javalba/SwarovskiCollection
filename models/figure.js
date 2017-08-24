@@ -15,7 +15,7 @@ const FigureSchema = new Schema({
   personalNotes: String,
   image: {
     type: String,
-    default: 'https://cdn4.iconfinder.com/data/icons/app-custom-ui-1/48/Account-32.png',
+    default: 'https://is1-ssl.mzstatic.com/image/thumb/Purple60/v4/be/90/34/be903439-23a2-2fa8-dee5-f5beb9c36bc6/source/256x256bb.jpg',
   },
   favorite: Boolean,
   sell: Boolean

@@ -1,12 +1,12 @@
 <div class="container">
-  <form id="form" action="/collections/<%=collection._id%>/figures/<%=collection.figures[0]._id%>" method="POST">
+  <form id="form" action="/collections/<%=collection._id%>/figures/<%=collection.figures[0]._id%>" method="POST" enctype="multipart/form-data">
 
     <h2>Collection</h2>
     <br>
     <strong><%=collection.name%></strong>
     <br><br>
     <label>Owner</label><br>
-    <strong><%=collection.owner.email%></strong>
+    <strong><%=collection.owner.name%></strong>
 
     <h2>Edit Figure</h2>
     <br><br>
@@ -45,8 +45,9 @@
     <br><br>
 
     <br><br>
+    <img src="<%= collection.figures[0].image %>" />
     <label for="image">Image</label><br>
-    <input type="text" id="image" name="image" value="<%=collection.figures[0].image%>">
+    <input type="file" id="image" name="image">
     <br><br>
 
     <br><br>

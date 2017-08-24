@@ -5,7 +5,7 @@ const Figure = require('../models/figure');
 const {
   ensureLoggedIn
 } = require('connect-ensure-login');
-var multer  = require('multer');
+var multer = require('multer');
 // Route to upload from project base path
 const upload = multer({
   dest: './public/uploads/'
@@ -130,6 +130,7 @@ router.post('/:id/delete', ensureLoggedIn('login'), (req, res, next) => {
 
 //upload.single is a Multer middleware. File upload will be handled by Multer. 
 router.post('/:id/figures/new', upload.single('image'), ensureLoggedIn('/login'), (req, res, next) => {
+
   const newFigure = new Figure({
     owner: req.user._id,
     name: req.body.name,
@@ -139,12 +140,15 @@ router.post('/:id/figures/new', upload.single('image'), ensureLoggedIn('/login')
     collec: req.body.collec,
     adquisitionPrice: req.body.adquisitionPrice,
     personalNotes: req.body.personalNotes,
-    image: `/uploads/${req.file.filename}`,
     favorite: req.body.favorite,
     sell: req.body.sell,
     // We're assuming a user is logged in here
     // If they aren't, this will throw an error
   });
+  if (req.file) {
+    newFigure.image = `/uploads/${req.file.filename}`;
+  }
+
   newFigure.save((err) => {
     if (err) {
       res.render('error');
@@ -176,10 +180,9 @@ router.post('/:id/figures/new', upload.single('image'), ensureLoggedIn('/login')
 });
 
 router.get('/:idCol/figures/:idFig', ensureLoggedIn('/login'), (req, res, next) => {
-  console.log(`****************************************************** col ${req.params.idCol} - fig${req.params.idFig} `);
+  console.log(`***************** col ${req.params.idCol} - fig${req.params.idFig} `);
   Collection
     .findById(req.params.idCol)
-
     .populate({
       path: 'figures',
       match: {
@@ -189,10 +192,15 @@ router.get('/:idCol/figures/:idFig', ensureLoggedIn('/login'), (req, res, next) 
         limit: 1
       }
     })
+    .populate({
+      path: 'owner',
+      select: 'email name',
+    })
     .exec((err, collection) => {
       if (err) {
         return next(err);
       }
+      console.log(`----------->${collection.owner}`);
       res.render('figures/showOne', {
         user: req.user,
         collection
