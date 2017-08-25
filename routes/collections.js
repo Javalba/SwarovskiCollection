@@ -208,7 +208,7 @@ router.get('/:idCol/figures/:idFig', ensureLoggedIn('/login'), (req, res, next) 
     });
 });
 
-router.post('/:idCol/figures/:idFig', ensureLoggedIn('login'), (req, res, next) => {
+router.post('/:idCol/figures/:idFig', upload.single('image'), ensureLoggedIn('login'), (req, res, next) => {
   console.log(`LLEGA A POST FIGURES/ID`);
   const updates = {
     name: req.body.name,
@@ -218,10 +218,13 @@ router.post('/:idCol/figures/:idFig', ensureLoggedIn('login'), (req, res, next) 
     collec: req.body.collec,
     adquisitionPrice: req.body.adquisitionPrice,
     personalNotes: req.body.personalNotes,
-    image: req.body.image,
     favorite: req.body.favorite,
     sell: req.body.sell,
   };
+
+  if(req.file){
+    updates.image = `/uploads/${req.file.filename}`;
+  }
   console.log(`updates-->${updates}`);
   Figure.findByIdAndUpdate(req.params.idFig, updates, (err, figure) => {
     if (err) {
@@ -233,20 +236,17 @@ router.post('/:idCol/figures/:idFig', ensureLoggedIn('login'), (req, res, next) 
     if (!figure) {
       return next(new Error('404'));
     }
-    return res.redirect(`collection/${req.params.idCol}/figures/${figure._id}`);
+    return res.redirect(`/collections/${req.params.idCol}/figures/${figure._id}`);
   });
 });
 
 
-router.post('/:id/delete', ensureLoggedIn('login'), (req, res, next) => {
-    Collection.findByIdAndRemove(req.params.id, (err, collection) => {
+router.post('/:idCol/figures/:idFig/delete', ensureLoggedIn('login'), (req, res, next) => {
+    Figure.findByIdAndRemove(req.params.idFig, (err, figure) => {
       if (err) {
         return next(err);
       }
-      /**
-       * ToDo: Delete vinculated figures.
-       */
-      return res.redirect('/collections');
+      return res.redirect(`/collections/${req.params.idCol}`);
     });
   }),
 
