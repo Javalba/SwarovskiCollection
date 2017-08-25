@@ -1,5 +1,6 @@
 var express = require('express');
 var router = express.Router();
+const util = require('util');
 
 const User = require('../models/user');
 
@@ -36,18 +37,6 @@ console.log(`ROUTER USERS ENTER`);
   }
   console.log(`updates-->${JSON.stringify(updates)}`);
 
-  /*   let updates = {
-      email,
-      password,
-      avatar,
-      name,
-      surname,
-      address,
-      city,
-      country,
-      birthday
-    } = req.body; */
-
   /**
    * findOneAndUpdate([conditions], [update], [options], [callback])
    */
@@ -55,6 +44,7 @@ console.log(`ROUTER USERS ENTER`);
     if (err) {
       next(err);
     } else {
+      console.log(`user-->${util.inspect(user)}`);
            res.redirect(`/users/${email}`);
     }
   });

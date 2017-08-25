@@ -9,7 +9,10 @@ const expressLayouts = require('express-ejs-layouts');
 const mongoose = require('mongoose');
 const User = require('./models/user');
 const moment = require('moment');
-var flash = require('connect-flash');
+const flash = require('connect-flash');
+const GoogleStrategy = require("passport-google-oauth")
+  .OAuth2Strategy;
+const util = require('util');
 
 
 //Authentication & Authorization modules
@@ -70,7 +73,7 @@ app.use(session({
   resave: true,
   saveUninitialized: true,
   cookie: {
-    maxAge: 900000
+    maxAge: 2000000
   },
   store: new MongoStore({
     mongooseConnection: mongoose.connection,
@@ -103,6 +106,47 @@ passport.deserializeUser((id, cb) => {
 
 
 // Signing Up
+
+passport.use(new GoogleStrategy({
+  clientID: '60359403657-2kb369umburkbc39rl0stodcc4vvuj6q.apps.googleusercontent.com',
+  clientSecret: 'wPvEsVlevR0t-mB5aV-AZ5Gn',
+  callbackURL: '/auth/google/callback',
+  passReqToCallback: true
+}, (req, accessToken, refreshToken, profile, done) => {
+  User.findOne({
+    googleID: profile.id
+  }, (err, user) => {
+    if (err) {
+      return done(err);
+    }
+    if (user) {
+      console.log(`USER FOUND!!!!!!`);
+      // if a user is found, log him in
+      return done(null, user);
+    }
+    console.log(`FIRST USER CREATE!!!!!!`);
+    
+    // if the user isnt in our database, create a new user
+    const newUser = new User({
+      googleID: profile.id,
+      name: profile.name.givenName, //    console.log(`name: ${profile.name.givenName}`);       
+      surname: profile.name.familyName,
+      email: profile.emails[0].value,
+      avatar: profile.photos[0].value
+    });
+
+    console.log(`user-->${newUser}`);
+
+    newUser.save((err) => {
+      if (err)
+        throw err;
+      return done(null, newUser);
+    });
+  });
+
+}));
+
+
 /**
  * LocalStrategy expects to find credentials in parameters named 'username' and 'password'.
  * 
@@ -113,6 +157,7 @@ passport.use('local-signup', new LocalStrategy({
   },
   (req, email, password, next) => {
     // To avoid race conditions
+    // Make code async, User.findOne won't fire until we have all our data back
     process.nextTick(() => {
       User.findOne({
         'email': email

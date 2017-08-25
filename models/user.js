@@ -13,7 +13,8 @@ const UserSchema = new Schema({
     default: 'https://cdn4.iconfinder.com/data/icons/app-custom-ui-1/48/Account-32.png',
   },
   birthday: Date,
-  password: String
+  password: String,
+  googleID: String,
 }, {
   timestamps: {
     createdAt: 'created_at',
