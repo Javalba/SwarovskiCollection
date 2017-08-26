@@ -7,8 +7,11 @@ const {
 const multer = require('multer');
 const upload = multer({
   dest: './public/uploads/profiles/'
-
 });
+const { 
+  checkEmailExists 
+  } = require('../middleware/user-middleware');
+
 const User = require('../models/user');
 
 
@@ -28,7 +31,7 @@ router.get('/:email',ensureLoggedIn('/login'), function (req, res, next) {
 /**
  * Edit profile
  */
-router.post('/:email', upload.single('avatar'), ensureLoggedIn('/login'),function (req, res, next) {
+router.post('/:email', upload.single('avatar'), ensureLoggedIn('/login'),checkEmailExists,function (req, res, next) {
   console.log(`REQ-:::::::::->${util.inspect(req.body)}`);
 let emailReq = req.params.email;
   let updates = {
@@ -44,19 +47,27 @@ let emailReq = req.params.email;
   if(req.file){
     updates.avatar = `/uploads/profiles/${req.file.filename}`; 
   }
-  console.log(`updates-->${JSON.stringify(updates)}`);
+  console.log(`res.locals.emailExists-->${res.locals.emailExists}`);
+  if(res.locals.emailExists){
 
-  /**
-   * findOneAndUpdate([conditions], [update], [options], [callback])
-   */
-  User.findOneAndUpdate({email:emailReq}, updates, (err, user) => {
-    if (err) {
-      next(err);
-    } else {
-      console.log(`user-->${util.inspect(user)}`);
-      res.redirect(`/users/${emailReq}`);
-    }
-  });
+    //flash messages error, user exist and redirect
+    console.log(`NO SE ACTUALIZA`);
+    res.redirect(`/users/${emailReq}`);    
+  }else{
+    console.log(`updates-->${JSON.stringify(updates)}`);
+    /**
+     * findOneAndUpdate([conditions], [update], [options], [callback])
+     */
+    User.findOneAndUpdate({email:emailReq}, updates, (err, user) => {
+      if (err) {
+        next(err);
+      } else {
+        console.log(`SE ACTUALIZA`);          
+        res.redirect(`/users/${emailReq}`);
+      }
+    });
+  }
+
 });
 
 module.exports = router;
