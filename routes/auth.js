@@ -5,6 +5,10 @@ const {
   ensureLoggedIn,
   ensureLoggedOut
 } = require('connect-ensure-login');
+const multer = require('multer');
+const upload = multer({
+  dest: './public/uploads/profiles/'
+});
 
 router.get('/login', ensureLoggedOut(), (req, res) => {
     /*     console.log('RRRRRRRRRRRRRRRRRRrequest:\n' + JSON.stringify(req.session));
@@ -22,15 +26,16 @@ router.get('/login', ensureLoggedOut(), (req, res) => {
   }));
 
 
-  router.get('/auth/google', passport.authenticate('google', {
-    scope: ['https://www.googleapis.com/auth/plus.login',
-            'https://www.googleapis.com/auth/plus.profile.emails.read']
-  }));
-  
-  router.get('/auth/google/callback', passport.authenticate('google', {
-    failureRedirect: '/error',
-    successRedirect: '/'
-  }));
+router.get('/auth/google', passport.authenticate('google', {
+  scope: ['https://www.googleapis.com/auth/plus.login',
+    'https://www.googleapis.com/auth/plus.profile.emails.read'
+  ]
+}));
+
+router.get('/auth/google/callback', passport.authenticate('google', {
+  failureRedirect: '/error',
+  successRedirect: '/'
+}));
 
 router.get('/signup', ensureLoggedOut(), (req, res, next) => {
     res.render('auth/signup', {
@@ -38,7 +43,7 @@ router.get('/signup', ensureLoggedOut(), (req, res, next) => {
     });
   })
 
-  .post('/signup', ensureLoggedOut(),  passport.authenticate('local-signup', {
+  .post('/signup', upload.single('avatar'), ensureLoggedOut(), passport.authenticate('local-signup', {
     successRedirect: '/',
     failureRedirect: ('/signup'),
     failureFlash: true,

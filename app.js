@@ -125,7 +125,7 @@ passport.use(new GoogleStrategy({
       return done(null, user);
     }
     console.log(`FIRST USER CREATE!!!!!!`);
-    
+
     // if the user isnt in our database, create a new user
     const newUser = new User({
       googleID: profile.id,
@@ -159,6 +159,7 @@ passport.use('local-signup', new LocalStrategy({
     // To avoid race conditions
     // Make code async, User.findOne won't fire until we have all our data back
     process.nextTick(() => {
+      console.log(`LocalStrategy. FIRST`);
       User.findOne({
         'email': email
       }, (err, user) => {
@@ -173,29 +174,37 @@ passport.use('local-signup', new LocalStrategy({
           return next(null, false, req.flash(key, msg));
         } else {
           // Destructure the body
-          const {
-            email,
-            password,
-            avatar,
-            name,
-            surname,
-            address,
-            city,
-            country,
-            birthday
-          } = req.body;
-          const hashPass = bcrypt.hashSync(password, bcrypt.genSaltSync(8), null);
+          /*           const {
+                      email,
+                      password,
+                      name,
+                      surname,
+                      address,
+                      city,
+                      country,
+                      birthday
+                    } = req.body; */
+                    console.log(`NO ERRORS`);
+          const hashPass = bcrypt.hashSync(req.body.password, bcrypt.genSaltSync(8), null);
+          console.log(`HASPASS.`);
           const newUser = new User({
-            email,
+            email: req.body.email,
             password: hashPass,
-            avatar,
-            name,
-            surname,
-            address,
-            city,
-            country,
-            birthday
+            name: req.body.name,
+            surname: req.body.surname,
+            address: req.body.address,
+            city: req.body.city,
+            country: req.body.country,
+            birthday: req.body.birthday
           });
+      
+
+          if(req.file){
+            newUser.avatar = `/uploads/${req.file.filename}`;
+          }
+          console.log(`NEW USER ${newUser}`);
+          console.log(`NEW USER/${util.inspect(newUser,false,null)}`);
+          
 
           newUser.save((err) => {
             if (err) {

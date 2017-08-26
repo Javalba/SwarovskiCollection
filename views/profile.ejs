@@ -1,52 +1,53 @@
 <!-- views/authentication/signup.ejs -->
 
-    <% if (typeof user !== "undefined") { %>
+<% if (typeof user !== "undefined") { %>
 
-<div class="container">
-  <div class="row">
-    <div class="col-sm-6 centered-form">
-      <form id="form" action="/users/<%=user.email %>" method="POST">
-        <h2>PROFILE</h2>
-        <br><br>
-        <label for="username">Email</label><br>
-        <input type="email" id="email2" name="email" value='<%=user.email %>'>
-        <br><br>
-        <label for="password">New Password</label><br>
-        <input type="password" id="password" name="password" value='<%=user.password %>'>
-        <br><br>
-        <label for="avatar">Avatar</label><br>
-        <input type="text" id="avatar" name="avatar" value='<%=user.avatar %>'>
-        <br><br>
-        <br><br>
-        <label for="name">Name</label><br>
-        <input type="text" id="name" name="name" value='<%=user.name %>'>
-        <br><br>
-        <label for="surname">Surname</label><br>
-        <input type="text" id="surname" name="surname" value='<%=user.surname %>'>
-        <br><br>
-        <label for="address">Adress</label><br>
-        <input type="text" id="address" name="address" value='<%=user.address %>'>
-        <br><br>
-        <label for="city">City</label><br>
-        <input type="text" id="city" name="city" value='<%=user.city %>'>
-        <br><br>
-        <label for="country">Country</label><br>
-        <input type="text" id="country" name="country" value='<%=user.country %>'>
-        <br><br>
-        <label for="birthday">Birthday</label><br>
-        <input type="date" id="birthday" name="birthday" value='<%=user.birthday %>'>
-        <br><br>
-        <button>Save changes</button>
-      </form>
-      <% if (typeof errorMsg !== "undefined") { %>
-        <% console.log(`-------------->${errorMsg}`)%>
-          <div class="error-message">
-            <p>
-              <%= errorMsg %>
-            </p>
-          </div>
-          <% } %>
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-6 centered-form">
+        <form id="form" action="/users/<%=user.email %>" method="POST" enctype="multipart/form-data">
+          <h2>PROFILE</h2>
+          <br><br>
+          <label for="username">Email</label><br>
+          <input type="email" id="email2" name="email" value='<%=user.email %>'>
+          <br><br>
+          <label for="password">New Password</label><br>
+          <input type="password" id="password" name="password" value='<%=user.password %>'>
+          <br><br>
+          <label for="avatar">Avatar</label><br>          
+          <img src="<%= user.avatar %>" />          
+          <input type="file" id="avatar" name="avatar">
+          <br><br>
+          <br><br>
+          <label for="name">Name</label><br>
+          <input type="text" id="name" name="name" value='<%=user.name %>'>
+          <br><br>
+          <label for="surname">Surname</label><br>
+          <input type="text" id="surname" name="surname" value='<%=user.surname %>'>
+          <br><br>
+          <label for="address">Adress</label><br>
+          <input type="text" id="address" name="address" value='<%=user.address %>'>
+          <br><br>
+          <label for="city">City</label><br>
+          <input type="text" id="city" name="city" value='<%=user.city %>'>
+          <br><br>
+          <label for="country">Country</label><br>
+          <input type="text" id="country" name="country" value='<%=user.country %>'>
+          <br><br>
+          <label for="birthday">Birthday</label><br>
+          <input type="date" id="birthday" name="birthday" value='<%=user.birthday %>'>
+          <br><br>
+          <button>Save changes</button>
+        </form>
+        <% if (typeof errorMsg !== "undefined") { %>
+          <% console.log(`-------------->${errorMsg}`)%>
+            <div class="error-message">
+              <p>
+                <%= errorMsg %>
+              </p>
+            </div>
+            <% } %>
+      </div>
     </div>
-  </div>
 
-<% } %>
+    <% } %>

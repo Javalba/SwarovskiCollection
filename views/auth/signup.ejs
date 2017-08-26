@@ -2,7 +2,7 @@
 <div class="container">
   <div class="row">
     <div class="col-sm-6 centered-form">
-      <form id="form" action="/signup" method="POST">
+      <form id="form" action="/signup" method="POST" enctype="multipart/form-data">
         <h2>SIGN UP</h2>
         <br><br>
         <label for="username">Email</label><br>
@@ -12,7 +12,7 @@
         <input type="password" id="password" name="password" placeholder="password">
         <br><br>
         <label for="avatar">Avatar</label><br>
-        <input type="text" id="avatar" name="avatar" placeholder="avatar">
+        <input type="file" id="avatar" name="avatar">
         <br><br>
         <br><br>
         <label for="name">Name</label><br>

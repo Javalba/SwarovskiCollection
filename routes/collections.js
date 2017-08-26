@@ -1,11 +1,11 @@
-var express = require('express');
-var router = express.Router();
+const express = require('express');
+const router = express.Router();
 const Collection = require('../models/collection');
 const Figure = require('../models/figure');
 const {
   ensureLoggedIn
 } = require('connect-ensure-login');
-var multer = require('multer');
+const multer = require('multer');
 // Route to upload from project base path
 const upload = multer({
   dest: './public/uploads/'
