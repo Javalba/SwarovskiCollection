@@ -1,70 +1,520 @@
-$test:#00B7FF;
-$small: '@media (max-width: 639px)';
-$medium: '@media (max-width: 1047px)';
-$large: '@media (min-width: 1048px)';
+@import url("fonts/stylesheet.css");
+@import url('https://fonts.googleapis.com/css?family=Arapey');
+$background: #f9f9f9;
+$font: 'Swarosvki'; //Doesnt work
+$font2:'Arapey',
+serif;
+$border-color: #d1d1d1 1px solid;
 
-body {
-  margin: 0 auto;
-  padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
-}
+
+
+
+
+/* $xs: "(min-width: 0) and (max-width: 768px)";
+$sm: "(min-width: 768px)";
+$md: "(min-width: 992px)";
+$lg: "(min-width: 1200px)"; */
+
+$test:#00B7FF;
+
+$small: '(min-width: 0) and (max-width: 639px)';
+$medium: '(min-width: 640px) and (max-width: 1047px)';
+$large: '(min-width: 1048px)';
+
 
 a {
-  color: $test;
-}
-
-
-#form {
-  margin: 30px auto;
-  width: 380px;
-}
-
-#form label {
-  color: #666;
-  display: inline-block;
-  margin-bottom: 10px;
-  text-align: center;
-  width: 100%;
-}
-
-#form input,
-#form button {
-  box-sizing: border-box;
-  font-size: 14px;
-  outline: 0;
-  padding: 4px;
-  width: 100%;
-}
-
-#form button {
-  background: #43a3e6;
-  border: 1px solid #43a3e6;
-  border-radius: 4px;
-  color: #fff;
-  cursor: pointer;
-  display: inline-block;
-  font-size: 14px;
-  padding: 8px 16px;
   text-decoration: none;
-  text-transform: uppercase;
-  transition: .3s ease background;
-  width: 100%;
-}
-
-#form button:hover {
-  background: #fff;
-  color: #43a3e6;
-  transition: .3s ease background;
+} //font-awesome icon
+.fa {
+  color: rgba(0, 0, 0, 0.75);
 }
 
 
-footer {
-  margin: 0 auto;
-}
+/*  $small: '(max-width: 639px)';
+$medium: '(max-width: 1047px)';
+$large: '(min-width: 1048px)';  */
 
-.figures {
+@media #{$small} {
 
-  &-ul{
-    border: 1px solid black;
+  body {
+    background: $background;
+    font-family: $font2;
+    margin: 8px;
+  }
+
+  main {
+    max-width: 639px;
+    margin: 0 auto;
+
+    .l-mainContainer {
+      margin-top: 170px;
+      @media #{$medium} {
+        margin-top: 170px;
+      }
+      @media #{$medium} {
+        margin-top: 170px;
+      }
     }
+  }
+
+  header {
+    max-width: 639px;
+    margin: 0 auto;
+    position: fixed;
+    top: 0;
+    z-index: 1;
+    width: 100%;
+    background-color: white;
+    border-bottom: black solid 1px;
+
+    .l-topNavContainer {
+
+
+      align-content: center;
+      text-align: center;
+    }
+
+    .topMenu-hamburguer {
+      text-decoration: none;
+      color: black;
+      display: block;
+    }
+
+    .topMenu {
+
+      &-logo {}
+      &-ul {
+        display: none;
+        margin: 0;
+        padding: 0; //link activated clicking li element
+        &-item a {}
+        &-item {}
+
+        &-item:hover {
+          background-color: rgba(128, 128, 128, 0.25);
+          border-radius: 2px;
+          cursor: pointer;
+        }
+      }
+
+      &-ul.collapsed {
+        display: block;
+      }
+    }
+  }
+
+
+  #form {
+    margin: 30px auto;
+    width: 380px;
+  }
+
+  #form label {
+    color: #666;
+    display: inline-block;
+    margin-bottom: 10px;
+    text-align: center;
+    width: 100%;
+  }
+
+  #form input,
+  #form button {
+    box-sizing: border-box;
+    font-size: 14px;
+    outline: 0;
+    padding: 4px;
+    width: 100%;
+  }
+
+  #form button {
+    background: #43a3e6;
+    border: 1px solid #43a3e6;
+    border-radius: 4px;
+    color: #fff;
+    cursor: pointer;
+    display: inline-block;
+    font-size: 14px;
+    padding: 8px 16px;
+    text-decoration: none;
+    text-transform: uppercase;
+    transition: .3s ease background;
+    width: 100%;
+  }
+
+  #form button:hover {
+    background: #fff;
+    color: #43a3e6;
+    transition: .3s ease background;
+  }
+
+
+  footer {
+    margin: 0 auto;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    border-top: solid 1px;
+    height: 40px;
+    line-height: 43px;
+    background-color: $background;
+    border-top-color: #f2f2f2;
+
+    .navigation {
+      max-width: 316px;
+      margin: 0 auto;
+    }
+  }
+
+  .navigation {
+    display: flex;
+    align-items: center;
+
+  }
+
+  .navigation>*:not(:first-child) {
+    margin-left: 1.6rem;
+  }
+
+  .figures {
+
+    &-ul {
+      border: 1px solid black;
+    }
+  }
+}
+
+
+
+
+/***********************************************************************
+******                   MEDIUM ************
+/************************************************************************/
+
+@media #{$medium} {
+
+  body {
+    background: $background;
+    font-family: $font2;
+    margin: 8px;
+  }
+
+  main {
+    max-width: 1200px;
+    margin: 0 auto;
+
+    .l-mainContainer {
+      margin-top: 100px;
+    }
+  }
+
+  header {
+
+    max-width: 1200px;
+    margin: 0 auto;
+    position: fixed;
+    top: 0;
+    z-index: 1;
+    width: 100%;
+    background-color: white;
+    border-bottom: black solid 1px;
+    left: 50%;
+    transform: translateX(-50%);
+
+    .l-topNavContainer {
+      max-width: 1200px;
+    }
+
+    .topMenu-hamburguer {
+      display: none;
+    }
+
+    .topMenu {
+      display: flex;
+      margin: 10px;
+      align-items: center;
+      margin: 0;
+
+      &-logo {
+        flex-grow: 0;
+        border: 0; //ToDo: Quitar el borde del enlace. 
+      }
+      &-ul {
+        flex-grow: 1;
+        margin: 0;
+        padding: 0; //link activated clicking li element
+        &-item a {
+          margin: 0px;
+          display: block;
+          width: 100%;
+          height: 100%;
+          color: black;
+        }
+        &-item {
+          display: inline-block;
+          float: right;
+          padding: 10px;
+          background-color: white;
+          line-height: 69px; //logo height  
+          padding: 0px 25px 0 25px;
+        }
+
+
+        &-item:hover {
+          background-color: rgba(128, 128, 128, 0.25);
+          border-radius: 2px;
+          cursor: pointer;
+          color: red;
+        }
+      }
+    }
+  }
+
+
+  #form {
+    margin: 30px auto;
+    width: 380px;
+  }
+
+  #form label {
+    color: #666;
+    display: inline-block;
+    margin-bottom: 10px;
+    text-align: center;
+    width: 100%;
+  }
+
+  #form input,
+  #form button {
+    box-sizing: border-box;
+    font-size: 14px;
+    outline: 0;
+    padding: 4px;
+    width: 100%;
+  }
+
+  #form button {
+    background: #43a3e6;
+    border: 1px solid #43a3e6;
+    border-radius: 4px;
+    color: #fff;
+    cursor: pointer;
+    display: inline-block;
+    font-size: 14px;
+    padding: 8px 16px;
+    text-decoration: none;
+    text-transform: uppercase;
+    transition: .3s ease background;
+    width: 100%;
+  }
+
+  #form button:hover {
+    background: #fff;
+    color: #43a3e6;
+    transition: .3s ease background;
+  }
+
+
+  footer {
+    margin: 0 auto;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    border-top: solid 1px;
+    height: 40px;
+    line-height: 43px;
+    background-color: $background;
+    border-top-color: #f2f2f2;
+
+    .navigation {
+      max-width: 316px;
+      margin: 0 auto;
+    }
+  }
+
+  .navigation {
+    display: flex;
+    align-items: center;
+
+  }
+
+  .navigation>*:not(:first-child) {
+    margin-left: 1.6rem;
+  }
+
+  .figures {
+
+    &-ul {
+      border: 1px solid black;
+    }
+  }
+}
+
+
+
+
+
+
+/***********************************************************************
+******                   LARGE                               ************
+/************************************************************************/
+
+@media #{$large} {
+
+  body {
+    background: $background;
+    font-family: $font2;
+    margin: 8px;
+  }
+
+  main {
+    max-width: 1200px;
+    margin: 0 auto;
+
+    .l-mainContainer {
+      margin-top: 100px;
+    }
+  }
+
+  header {
+
+    max-width: 1200px;
+    margin: 0 auto;
+    position: fixed;
+    top: 0;
+    z-index: 1;
+    width: 100%;
+    background-color: white;
+    border-bottom: black solid 1px;
+    left: 50%;
+    transform: translateX(-50%);
+
+    .l-topNavContainer {
+      max-width: 1200px;
+    }
+
+    .topMenu-hamburguer {
+      display: none;
+    }
+
+    .topMenu {
+      display: flex;
+      margin: 10px;
+      align-items: center;
+      margin: 0;
+
+      &-logo {
+        flex-grow: 0;
+        border: 0; //ToDo: Quitar el borde del enlace. 
+      }
+      &-ul {
+        flex-grow: 1;
+        margin: 0;
+        padding: 0; //link activated clicking li element
+        &-item a {
+          margin: 0px;
+          display: block;
+          width: 100%;
+          height: 100%;
+          color: black;
+        }
+        &-item {
+          display: inline-block;
+          float: right;
+          padding: 10px;
+          background-color: white;
+          line-height: 69px; //logo height  
+          padding: 0px 25px 0 25px;
+        }
+
+
+        &-item:hover {
+          background-color: rgba(128, 128, 128, 0.25);
+          border-radius: 2px;
+          cursor: pointer;
+          color: red;
+        }
+      }
+    }
+  }
+
+
+  #form {
+    margin: 30px auto;
+    width: 380px;
+  }
+
+  #form label {
+    color: #666;
+    display: inline-block;
+    margin-bottom: 10px;
+    text-align: center;
+    width: 100%;
+  }
+
+  #form input,
+  #form button {
+    box-sizing: border-box;
+    font-size: 14px;
+    outline: 0;
+    padding: 4px;
+    width: 100%;
+  }
+
+  #form button {
+    background: #43a3e6;
+    border: 1px solid #43a3e6;
+    border-radius: 4px;
+    color: #fff;
+    cursor: pointer;
+    display: inline-block;
+    font-size: 14px;
+    padding: 8px 16px;
+    text-decoration: none;
+    text-transform: uppercase;
+    transition: .3s ease background;
+    width: 100%;
+  }
+
+  #form button:hover {
+    background: #fff;
+    color: #43a3e6;
+    transition: .3s ease background;
+  }
+
+  footer {
+    margin: 0 auto;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    border-top: solid 1px;
+    height: 40px;
+    line-height: 43px;
+    background-color: $background;
+    border-top-color: #f2f2f2;
+
+    .navigation {
+      max-width: 316px;
+      margin: 0 auto;
+    }
+  }
+
+  .navigation {
+    display: flex;
+    align-items: center;
+
+  }
+
+  .navigation>*:not(:first-child) {
+    margin-left: 1.6rem;
+  }
+
+  .figures {
+
+    &-ul {
+      border: 1px solid black;
+    }
+  }
 }

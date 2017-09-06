@@ -1,13 +1,17 @@
 <main>
-  <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolor, impedit quam ex perspiciatis quos distinctio numquam esse, eum saepe, explicabo nihil vel officiis fugiat tempora reprehenderit fuga, libero eaque. Quam.</p>
-  <% if (typeof message !== "undefined") { %>
-    <% console.log(`MAIN.EJS-------------->${message}`)%>
-      <div class="message">
-        <%= message %>
-      </div>
-      <% } %>
+  <div class="l-mainContainer">
 
-      
-        <%- body -%>
+    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolor, impedit quam ex perspiciatis quos distinctio numquam esse, eum saepe, explicabo nihil vel officiis fugiat tempora reprehenderit fuga, libero eaque. Quam.</p>
+    <% if (typeof message !== "undefined") { %>
+      <% console.log(`MAIN.EJS-------------->${message}`)%>
+        <div class="message">
+          <%= message %>
+        </div>
+        <% } %>
+          <div class="l-body">
+            <%- body -%>
+          </div>
+  </div>
+
 </main>
 

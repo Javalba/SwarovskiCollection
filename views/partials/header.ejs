@@ -1,20 +1,26 @@
 <header>
 
-  <nav class="siteNavContainer">
+  <nav class="l-topNavContainer">
     <!--     <img class="topMenu_item topMenu_logo" src="https://www.swarovski.com/is-bin/intershop.static/WFS/SCO-Web_ES-Site/-/es_ES/img/basics/swarovski_v2016.png" alt="">
  -->
-    <img class="topMenu_item topMenu_logo" src="https://is2-ssl.mzstatic.com/image/thumb/Purple111/v4/c1/99/54/c1995425-611f-48cb-0111-0a7ddd76b829/source/256x256bb.jpg" alt="">
-    <ul class="topMenu">
-      <li class="topMenu_item"><a class="topMenu_button" href="/">Home</a></li>
+ <div class="topMenu">
+    <a href="/" ><img class="topMenu-logo" src="/images/swarovski-icon_158x69.png" alt=""></a>
+    <a href="javascript:void(0);" class="topMenu-hamburguer" onclick="toggleTopMenu()">&#9776;</a>
+    <ul class="topMenu-ul">
       <% if (typeof user !== "undefined") { %>
-        <li class="topMenu_item"><a class="topMenu_button" href="/users/<%=user.email%>">Profile</a></li>
-        <li class="topMenu_item"><a class="topMenu_button" href="/collections">My Collections</a></li>
-        <li class="topMenu_item"><a class="topMenu_button" href="/logout">Log out</a></li>
+        <li class="topMenu-ul-item"><a class="topMenu-button" href="/">Home</a></li>        
+        <li class="topMenu-ul-item"><a class="topMenu-button" href="/users/<%=user.email%>">Profile</a></li>
+        <li class="topMenu-ul-item"><a class="topMenu-button" href="/collections">My Collections</a></li>
+        <li class="topMenu-ul-item"><a class="topMenu-button" href="/logout">Log out</a></li>
         <% } else{ %>
-      <li class="topMenu_item"><a class="topMenu_button" href="/signup">Sign Up</a></li>
-      <li class="topMenu_item"><a class="topMenu_button" href="/login">Login</a></li>
-        <% } %>
+      <li class="topMenu-ul-item"><a class="topMenu-button" href="/signup">Sign Up</a></li>
+      <li class="topMenu-ul-item"><a class="topMenu-button" href="/login">Login</a></li>
+        <% } %>    
+        
+        
     </ul>
+ </div>
+
   </nav>
 
   <!--   <div class="pageContainer">
