@@ -6,14 +6,15 @@ $font2:'Arapey',
 serif;
 $border-color: #d1d1d1 1px solid;
 
-
-
-
-
 /* $xs: "(min-width: 0) and (max-width: 768px)";
 $sm: "(min-width: 768px)";
 $md: "(min-width: 992px)";
 $lg: "(min-width: 1200px)"; */
+
+
+/*  $small: '(max-width: 639px)';
+$medium: '(max-width: 1047px)';
+$large: '(min-width: 1048px)';  */
 
 $test:#00B7FF;
 
@@ -24,15 +25,57 @@ $large: '(min-width: 1048px)';
 
 a {
   text-decoration: none;
-} //font-awesome icon
+}
+
+//font-awesome icon
 .fa {
   color: rgba(0, 0, 0, 0.75);
 }
 
+//FORM
+#form {
+  margin: 30px auto;
+  width: 380px;
+}
 
-/*  $small: '(max-width: 639px)';
-$medium: '(max-width: 1047px)';
-$large: '(min-width: 1048px)';  */
+#form label {
+  color: #666;
+  display: inline-block;
+  margin-bottom: 10px;
+  text-align: center;
+  width: 100%;
+}
+
+#form input,
+#form button {
+  box-sizing: border-box;
+  font-size: 14px;
+  outline: 0;
+  padding: 4px;
+  width: 100%;
+}
+
+#form button {
+  margin-top: 20px;
+  background: black;
+  border: 1px solid grey;
+  border-radius: 4px;
+  color: #fff;
+  cursor: pointer;
+  display: inline-block;
+  font-size: 14px;
+  padding: 8px 16px;
+  text-decoration: none;
+  text-transform: uppercase;
+  transition: .3s ease background;
+  width: 100%;
+}
+
+#form button:hover {
+  background: #fff;
+  color: black;
+  transition: .3s ease background;
+}
 
 @media #{$small} {
 
@@ -45,14 +88,41 @@ $large: '(min-width: 1048px)';  */
   main {
     max-width: 639px;
     margin: 0 auto;
+    margin-top: 125px;
+    margin-bottom: 75px;
 
-    .l-mainContainer {
-      margin-top: 170px;
-      @media #{$medium} {
-        margin-top: 170px;
+    .l-mainContainer {}
+
+    .teaser-welcome {
+
+      background-image: url(https://i.ytimg.com/vi/hPCotoawhk0/maxresdefault.jpg);
+      background-position: 50% 50%;
+      min-height: 160px;
+
+      &>h1 {
+        margin: 2rem auto 1.3rem;
+        font-size: 32px;
+        font-weight: 700;
+        text-align: center;
+        max-width: 70rem;
       }
-      @media #{$medium} {
-        margin-top: 170px;
+      &>h2 {
+        font-size: 20px;
+        text-align: center;
+        font-weight: 500;
+        margin-bottom: 0;
+      }
+    }
+
+    .teaser-login {
+
+      &>p {
+        min-height: 100px;
+        text-align: center;
+        line-height: 100px;
+        font-size: 20px;
+        background-color: #f2f4f5;
+        margin: 0 auto;
       }
     }
   }
@@ -78,6 +148,7 @@ $large: '(min-width: 1048px)';  */
       text-decoration: none;
       color: black;
       display: block;
+      font-size: 28px;
     }
 
     .topMenu {
@@ -87,7 +158,11 @@ $large: '(min-width: 1048px)';  */
         display: none;
         margin: 0;
         padding: 0; //link activated clicking li element
-        &-item a {}
+        &-item a {
+          display: block;
+          font-size: 20px;
+          color: black;
+        }
         &-item {}
 
         &-item:hover {
@@ -104,51 +179,8 @@ $large: '(min-width: 1048px)';  */
   }
 
 
-  #form {
-    margin: 30px auto;
-    width: 380px;
-  }
-
-  #form label {
-    color: #666;
-    display: inline-block;
-    margin-bottom: 10px;
-    text-align: center;
-    width: 100%;
-  }
-
-  #form input,
-  #form button {
-    box-sizing: border-box;
-    font-size: 14px;
-    outline: 0;
-    padding: 4px;
-    width: 100%;
-  }
-
-  #form button {
-    background: #43a3e6;
-    border: 1px solid #43a3e6;
-    border-radius: 4px;
-    color: #fff;
-    cursor: pointer;
-    display: inline-block;
-    font-size: 14px;
-    padding: 8px 16px;
-    text-decoration: none;
-    text-transform: uppercase;
-    transition: .3s ease background;
-    width: 100%;
-  }
-
-  #form button:hover {
-    background: #fff;
-    color: #43a3e6;
-    transition: .3s ease background;
-  }
-
-
   footer {
+    color: black;
     margin: 0 auto;
     position: fixed;
     bottom: 0;
@@ -169,7 +201,6 @@ $large: '(min-width: 1048px)';  */
   .navigation {
     display: flex;
     align-items: center;
-
   }
 
   .navigation>*:not(:first-child) {
@@ -183,8 +214,6 @@ $large: '(min-width: 1048px)';  */
     }
   }
 }
-
-
 
 
 /***********************************************************************
@@ -202,14 +231,45 @@ $large: '(min-width: 1048px)';  */
   main {
     max-width: 1200px;
     margin: 0 auto;
+    margin-top: 100px;
+    margin-bottom: 75px;
 
-    .l-mainContainer {
-      margin-top: 100px;
+    .l-mainContainer {}
+
+    .teaser-welcome {
+
+      background-image: url(https://i.ytimg.com/vi/hPCotoawhk0/maxresdefault.jpg);
+      background-position: 50% 50%;
+      min-height: 200px;
+
+      &>h1 {
+        margin: 2rem auto 1.3rem;
+        font-size: 3.4rem;
+        font-weight: 700;
+        text-align: center;
+        max-width: 70rem;
+      }
+      &>h2 {
+        text-align: center;
+        font-weight: 500;
+        margin-bottom: 0;
+      }
+    }
+
+    .teaser-login {
+
+      &>p {
+        min-height: 100px;
+        text-align: center;
+        line-height: 100px;
+        font-size: 20px;
+        background-color: #f2f4f5;
+        margin: 0 auto;
+      }
     }
   }
 
   header {
-
     max-width: 1200px;
     margin: 0 auto;
     position: fixed;
@@ -270,51 +330,6 @@ $large: '(min-width: 1048px)';  */
     }
   }
 
-
-  #form {
-    margin: 30px auto;
-    width: 380px;
-  }
-
-  #form label {
-    color: #666;
-    display: inline-block;
-    margin-bottom: 10px;
-    text-align: center;
-    width: 100%;
-  }
-
-  #form input,
-  #form button {
-    box-sizing: border-box;
-    font-size: 14px;
-    outline: 0;
-    padding: 4px;
-    width: 100%;
-  }
-
-  #form button {
-    background: #43a3e6;
-    border: 1px solid #43a3e6;
-    border-radius: 4px;
-    color: #fff;
-    cursor: pointer;
-    display: inline-block;
-    font-size: 14px;
-    padding: 8px 16px;
-    text-decoration: none;
-    text-transform: uppercase;
-    transition: .3s ease background;
-    width: 100%;
-  }
-
-  #form button:hover {
-    background: #fff;
-    color: #43a3e6;
-    transition: .3s ease background;
-  }
-
-
   footer {
     margin: 0 auto;
     position: fixed;
@@ -336,7 +351,6 @@ $large: '(min-width: 1048px)';  */
   .navigation {
     display: flex;
     align-items: center;
-
   }
 
   .navigation>*:not(:first-child) {
@@ -350,11 +364,6 @@ $large: '(min-width: 1048px)';  */
     }
   }
 }
-
-
-
-
-
 
 /***********************************************************************
 ******                   LARGE                               ************
@@ -371,14 +380,45 @@ $large: '(min-width: 1048px)';  */
   main {
     max-width: 1200px;
     margin: 0 auto;
+    margin-top: 100px;
+    margin-bottom: 75px;
 
-    .l-mainContainer {
-      margin-top: 100px;
+    .l-mainContainer {}
+
+    .teaser-welcome {
+
+      background-image: url(https://i.ytimg.com/vi/hPCotoawhk0/maxresdefault.jpg);
+      background-position: 50% 50%;
+      min-height: 200px;
+
+      &>h1 {
+        margin: 2rem auto 1.3rem;
+        font-size: 3.4rem;
+        font-weight: 700;
+        text-align: center;
+        max-width: 70rem;
+      }
+      &>h2 {
+        text-align: center;
+        font-weight: 500;
+        margin-bottom: 0;
+      }
+    }
+
+    .teaser-login {
+
+      &>p {
+        min-height: 100px;
+        text-align: center;
+        line-height: 100px;
+        font-size: 20px;
+        background-color: #f2f4f5;
+        margin: 0 auto;
+      }
     }
   }
 
   header {
-
     max-width: 1200px;
     margin: 0 auto;
     position: fixed;
@@ -439,50 +479,6 @@ $large: '(min-width: 1048px)';  */
     }
   }
 
-
-  #form {
-    margin: 30px auto;
-    width: 380px;
-  }
-
-  #form label {
-    color: #666;
-    display: inline-block;
-    margin-bottom: 10px;
-    text-align: center;
-    width: 100%;
-  }
-
-  #form input,
-  #form button {
-    box-sizing: border-box;
-    font-size: 14px;
-    outline: 0;
-    padding: 4px;
-    width: 100%;
-  }
-
-  #form button {
-    background: #43a3e6;
-    border: 1px solid #43a3e6;
-    border-radius: 4px;
-    color: #fff;
-    cursor: pointer;
-    display: inline-block;
-    font-size: 14px;
-    padding: 8px 16px;
-    text-decoration: none;
-    text-transform: uppercase;
-    transition: .3s ease background;
-    width: 100%;
-  }
-
-  #form button:hover {
-    background: #fff;
-    color: #43a3e6;
-    transition: .3s ease background;
-  }
-
   footer {
     margin: 0 auto;
     position: fixed;
@@ -504,7 +500,6 @@ $large: '(min-width: 1048px)';  */
   .navigation {
     display: flex;
     align-items: center;
-
   }
 
   .navigation>*:not(:first-child) {

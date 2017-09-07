@@ -1,17 +1,30 @@
 <!-- Landing page & User page -->
 
-  <% if (user) { %>
-    <h2>PRIVATE PAGE</h2>
-    <ul>
-      <li>
-        <a href="/private">Go to your private page</a>
-      </li>
-    </ul>
-    <div>
-      <p>Hello,
-        <%=user.email %>!</p>
-    </div>
-    <% } else{ %>
-      <p>Hello!, Log in to view your profile</p>
+<% if (user) { %>
+  <h2>PRIVATE PAGE</h2>
+  <ul>
+    <li>
+      <a href="/collections">Go to your collections page</a>
+    </li>
+  </ul>
+  <div>
+    <p>Hello,
+      <%=user.email %>!</p>
+  </div>
+  <% } else{ %>
 
-      <%} %>
+    <div class="l-mainContainer">
+      <div class="teaser-welcome">
+          <h1>Create your wonderful collection of Swarosvki figures</h1>
+          <h2>Create your own collections and figures, upload images and much more!</h2>
+      </div>
+      <div class="teaser-login">
+          <p>Log in to view your profile</p>
+      </div>
+
+
+    </div>
+
+
+
+    <%} %>
