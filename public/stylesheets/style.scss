@@ -438,21 +438,34 @@ ul {
 
   .section-collection-down {
 
-    border: 1px solid black;
+    max-width: 741px;
+    margin: 0 auto;
+    display: flex;
+    /* border: 1px solid black; */
     margin-top: 10px;
-    text-align: center;
-    display: inline-block;
+    /* text-align: center; */
+    /* display: inline-block; */
     min-width: 400px;
 
     .teaser-collection{
-      border-bottom: 1px grey solid;
+      margin: 10px;
+      flex-grow: 1;
+      flex-shrink: 1;
+      flex-basis: 0;
+      padding: 10px 0;
+      background-color: rgba(255, 0, 0, 0.25);
+      text-align: center;
+      border: 1px solid transparentize(white, 0.25);
+      background-color: transparentize(white, 0.8);
+      color: black;
+      /* border-bottom: 1px grey solid; */
       padding: 15px 0;
       background-color: white;
-      padding-left: 25px;
+      /* padding-left: 25px; */
     }
 
     .teaser-header{
-      
+
     }
   }
 
