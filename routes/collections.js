@@ -97,13 +97,33 @@ router.post('/:id', ensureLoggedIn('login'), (req, res, next) => {
 
 
 router.post('/:id/delete', ensureLoggedIn('login'), (req, res, next) => {
+
+  console.log(`LLEGA A DELETE-->`);
+  
+    Collection.findById(req.params.id, (err, collection) => {
+      if (err) {
+        return next(err);
+      }
+      console.log(`collection--> ${collection}`);
+      console.log(`collection.figures--> ${collection.figures}`);
+      console.log(`collection.figures--> ${collection.figures.length}`);
+      
+      collection.figures.forEach((figure) => {
+        console.log(`** figure--> ${figure}`);
+        
+        Figure.findByIdAndRemove(figure, (err, figure) => {
+          if(err){
+            return next(err);
+          }
+        });
+      });
+    });
+
     Collection.findByIdAndRemove(req.params.id, (err, collection) => {
       if (err) {
         return next(err);
       }
-      /**
-       * ToDo: Delete vinculated figures.
-       */
+
       return res.redirect('/collections');
     });
   }),
@@ -222,7 +242,7 @@ router.post('/:idCol/figures/:idFig', upload.single('image'), ensureLoggedIn('lo
     sell: req.body.sell,
   };
 
-  if(req.file){
+  if (req.file) {
     updates.image = `/uploads/${req.file.filename}`;
   }
   console.log(`updates-->${updates}`);

@@ -6,6 +6,7 @@ $font2:'Arapey',
 serif;
 $border-color: #d1d1d1 1px solid;
 
+
 /* $xs: "(min-width: 0) and (max-width: 768px)";
 $sm: "(min-width: 768px)";
 $md: "(min-width: 992px)";
@@ -25,6 +26,10 @@ $large: '(min-width: 1048px)';
 
 a {
   text-decoration: none;
+}
+
+ul {
+  list-style: none;
 }
 
 //font-awesome icon
@@ -216,6 +221,7 @@ a {
 }
 
 
+
 /***********************************************************************
 ******                   MEDIUM ************
 /************************************************************************/
@@ -365,6 +371,7 @@ a {
   }
 }
 
+
 /***********************************************************************
 ******                   LARGE                               ************
 /************************************************************************/
@@ -376,6 +383,79 @@ a {
     font-family: $font2;
     margin: 8px;
   }
+
+  .section-collection-up {
+
+    .teaser-header {
+      border-style: groove;
+      min-height: 100px;
+      background-color: rgba(128, 128, 128, 0.32);
+      border-radius: 3px;
+      line-height: 47px;
+
+      &>h1 {
+        float: right;
+        margin-right: 50px;
+        /* margin-bottom: 54px; */
+        font-style: italic;
+        font-size: xx-large;
+      }
+    }
+
+    .teaser-container {
+      border-bottom: 1px solid black;
+      text-align: center;
+      line-height: 60px;
+
+      &>ul {
+        display: inline-block;
+        margin: 0;
+        padding: 0;
+        margin-right: 50px;
+        height: 34px;
+      }
+
+      &>ul>li {
+        color: grey;
+
+        &>a {
+          color: black;
+          display: block;
+          padding: 0 10px 0 10px;
+          font-size: 21px;
+        }
+      }
+
+      &>ul>li:hover {
+        background-color: rgba(128, 128, 128, 0.25);
+        border-radius: 2px;
+        cursor: pointer;
+      }
+    }
+
+    .teaser-container-content {}
+  }
+
+  .section-collection-down {
+
+    border: 1px solid black;
+    margin-top: 10px;
+    text-align: center;
+    display: inline-block;
+    min-width: 400px;
+
+    .teaser-collection{
+      border-bottom: 1px grey solid;
+      padding: 15px 0;
+      background-color: white;
+      padding-left: 25px;
+    }
+
+    .teaser-header{
+      
+    }
+  }
+
 
   main {
     max-width: 1200px;
@@ -417,6 +497,7 @@ a {
       }
     }
   }
+
 
   header {
     max-width: 1200px;

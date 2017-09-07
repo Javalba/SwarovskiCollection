@@ -1,30 +1,28 @@
 <!-- Landing page & User page -->
+<div class="l-mainContainer">
 
-<% if (user) { %>
-  <h2>PRIVATE PAGE</h2>
-  <ul>
-    <li>
+  <% if (user) { %>
+    <div class="teaser-dashboard">
+      <h1>Hello,
+        <%=user.email %>!
+      </h1>
+
       <a href="/collections">Go to your collections page</a>
-    </li>
-  </ul>
-  <div>
-    <p>Hello,
-      <%=user.email %>!</p>
-  </div>
-  <% } else{ %>
-
-    <div class="l-mainContainer">
-      <div class="teaser-welcome">
-          <h1>Create your wonderful collection of Swarosvki figures</h1>
-          <h2>Create your own collections and figures, upload images and much more!</h2>
-      </div>
-      <div class="teaser-login">
-          <p>Log in to view your profile</p>
-      </div>
-
-
+      
     </div>
 
+    <% } else{ %>
 
 
-    <%} %>
+      <div class="teaser-welcome">
+        <h1>Create your wonderful collection of Swarosvki figures</h1>
+        <h2>Create your own collections and figures, upload images and much more!</h2>
+      </div>
+      <div class="teaser-login">
+        <p>Log in to view your profile</p>
+      </div>
+      <%} %>
+
+
+</div>
+
