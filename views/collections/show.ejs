@@ -15,29 +15,29 @@
     <p>Your list is empty, try to create a new collection!</p>
   </section>
   <% } else{ %>
-    <section class="section-collection-down">        
-    <% collections.forEach((collection) => { %>
-      <div class="teaser-collection">
-        <div class="teaser-header">
-          <p>Collection's name:</p>
-          <h1>
-            <a class="title" href="/collections/<%= collection._id %>">
+    <section class="section-collection-down">
+      <% collections.forEach((collection) => { %>
+        <a class="title" href="/collections/<%= collection._id %>">
+          <div class="teaser-collection">
+            <div class="teaser-header">
+              <h1>
                 <strong><%= collection.name %></strong>
-              </a><br>
-          </h1>
+                <br>
+              </h1>
+            </div>
+
+
+            <div class="teaser-container">
+              <div class="teaser-container-content">
+                <p>
+                  <%= collection.description %>
+                </p>
+              </div>
+            </div>
+        </a>
         </div>
 
-        <div class="teaser-container">
-          <p>Description:</p>
-          <div class="teaser-container-content">
-            <p class="light-text description">
-              <%= collection.description %>
-            </p>
-          </div>
-        </div>
-      </div>
         <%}) %>
-      </section>
-          <%}%>
-
+    </section>
+    <%}%>
 
