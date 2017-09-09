@@ -1,10 +1,14 @@
 @import url("fonts/stylesheet.css");
 @import url('https://fonts.googleapis.com/css?family=Arapey');
 $background: #f9f9f9;
+$border: #f2f2f2;
 $font: 'Swarosvki'; //Doesnt work
 $font2:'Arapey',
 serif;
 $border-color: #d1d1d1 1px solid;
+//$border-color: #f2f2f2 1px solid;
+
+
 
 
 
@@ -28,6 +32,7 @@ $large: '(min-width: 1048px)';
 
 a {
   text-decoration: none;
+  color: black;
 }
 
 ul {
@@ -39,10 +44,57 @@ ul {
   color: rgba(0, 0, 0, 0.75);
 }
 
-//FORM
+.l-body {
+  font-size: 1.5rem;
+  & h2 {
+    text-align: center;
+  }
+}
+
+.signIn-google {
+
+  margin-top: 25px;
+  text-align: center;
+  background-color: #DC5043;
+  border-radius: 4px;
+  transition: .3s ease background;
+
+  &>a {
+    line-height: 1.5;
+    border: 1px solid #DC5043;
+    padding: 7px 35px;
+    color: #fff;
+    width: unset;
+    display: block;
+  }
+}
+
+
+
+/* .signIn-google:hover{
+  background-color: #fff;
+  color: #DC5043;
+  transition: .3s ease background;
+} */
+
+.signIn-google:hover {
+
+  background-color: white;
+  transition: .3s ease background;
+
+  &>a:hover {
+    color: #DC5043;
+  }
+}
+
 #form {
   margin: 30px auto;
+  box-shadow: 0 30px 60px 0 rgba(51,60,76,.15);
   width: 380px;
+  background-color: white;
+  padding: 0.5rem 5rem;
+  border: $border-color;
+  border-radius: 1rem;
 }
 
 #form label {
@@ -56,21 +108,21 @@ ul {
 #form input,
 #form button {
   box-sizing: border-box;
-  font-size: 14px;
   outline: 0;
   padding: 4px;
   width: 100%;
 }
 
 #form button {
+  font-size: 1.5rem;
+  font-family: "Arapey", serif;
   margin-top: 20px;
   background: black;
-  border: 1px solid grey;
+  border: $border-color;
   border-radius: 4px;
   color: #fff;
   cursor: pointer;
   display: inline-block;
-  font-size: 14px;
   padding: 8px 16px;
   text-decoration: none;
   text-transform: uppercase;
@@ -84,12 +136,29 @@ ul {
   transition: .3s ease background;
 }
 
+
+/***********************************************************************
+******                   SMALL                              ************
+/************************************************************************/
+
 @media #{$small} {
 
   body {
     background: $background;
     font-family: $font2;
     margin: 8px;
+  }
+
+  .l-body {
+    font-size: 1rem;
+  }
+
+  #form{
+    padding: 0.2rem 2rem;
+  }
+
+  #form button {
+    font-size: 1rem;
   }
 
   .section-collection-up {
@@ -323,6 +392,8 @@ ul {
     }
   }
 }
+
+
 
 
 
@@ -590,6 +661,8 @@ ul {
 
 
 
+
+
 /***********************************************************************
 ******                   LARGE                               ************
 /************************************************************************/
@@ -820,7 +893,7 @@ ul {
     height: 40px;
     line-height: 43px;
     background-color: $background;
-    border-top-color: #f2f2f2;
+    border-top-color: $border;
 
     .navigation {
       max-width: 316px;
