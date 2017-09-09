@@ -1,58 +1,64 @@
-<div class=container>
-  <form id="form" action="/collections/<%=collection._id%>" method="POST">
-    <div class="collection-title">
-      <label for="collectionName">Collection name</label><br>
-      <input type="text" id="collection_name" name="collectionName" value='<%=collection.name%>'>
-    </div>
-    <div class="collection-description">
-      <label for="collectionDesc">Collection description</label><br>
-      <input type="text" id="collection_desc" name="collectionDesc" value='<%=collection.description%>'>
-    </div>
-</div>
-<div class=container-options>
-    <li><a class="btn" href="/collections/<%= collection._id %>">Collections</a></li>    
-  <button class="btn">Save changes</button>
-  </form>
-  <form action="/collections/<%= collection._id %>/delete" method="POST">
-    <button>Delete Collection</button>
-  </form>
-
-  <li><a class="btn" href="/collections/<%= collection._id %>/figures/new">Add Figure</a></li>
-
-  <div class="search-content">
-    <form action="/collections/<%= collection._id %>/search">
-      <!--  <button type="submit" class="search-submit">Submit</button>
-      <input index="q" tabindex="1" type="text" name="q" placeholder="Buscar" autocomplete="off"> -->
-      <label for="search-term">Search for an item by name</label>
-      <input type="text" name="name" id="search-term">
-      <button>Search</button>
+<div class=container-collection>
+  <div class="formulario">
+    <form action="/collections/<%=collection._id%>" method="POST">
+      <div class="collection-title">
+        <label for="collectionName">Collection name</label><br>
+        <input type="text" id="collection_name" name="collectionName" value='<%=collection.name%>'>
+      </div>
+      <div class="collection-description">
+        <label for="collectionDesc">Collection description</label><br>
+        <input type="text" id="collection_desc" name="collectionDesc" value='<%=collection.description%>' maxlength="120">
+      </div>
+      <button class="btn">Save changes</button>
     </form>
-    <form action="/collections/<%= collection._id %>/search">
-      <!--  <button type="submit" class="search-submit">Submit</button>
-      <input index="q" tabindex="1" type="text" name="q" placeholder="Buscar" autocomplete="off"> -->
-      <label for="search-author">Search for an item by author</label>
-      <input type="text" name="designer" id="search-author">
-      <button>Search</button>
-    </form>
-    <form action="/collections/<%= collection._id %>/search">
-      <!--  <button type="submit" class="search-submit">Submit</button>
-      <input index="q" tabindex="1" type="text" name="q" placeholder="Buscar" autocomplete="off"> -->
-      <label for="search-cheapest">Cheapest Items</label>
-      <input type="submit" name="cheapest" id="search-cheapest">
-    </form>
-    <form action="/collections/<%= collection._id %>/search">
-      <!--  <button type="submit" class="search-submit">Submit</button>
-      <input index="q" tabindex="1" type="text" name="q" placeholder="Buscar" autocomplete="off"> -->
-      <label for="search-expensive">Most Expensive Items</label>
-      <input type="submit" name="expensive" id="search-expensive">
+    <form action="/collections/<%= collection._id %>/delete" method="POST">
+      <button class="btn">Delete Collection</button>
     </form>
   </div>
-
-
 </div>
-<div class="container">
-  <div class="figures">
-    <% collection.figures.forEach( (figure) => { %>
+
+<div class=container-options>
+  <nav>
+    <li><a href="/collections/<%= collection._id %>"><i class="fa fa-list-alt"></i>Collection</a></li>
+    <li><a href="/collections/<%= collection._id %>/figures/new"><i class="fa fa-plus"></i>Add Figure</a></li>
+  </nav>
+
+  <div class="search-content">
+    <nav>
+      <form action="/collections/<%= collection._id %>/search">
+        <!--  <button type="submit" class="search-submit">Submit</button>
+          <input index="q" tabindex="1" type="text" name="q" placeholder="Buscar" autocomplete="off"> -->
+        <label for="search-term">Search for an item by name</label>
+        <input type="text" name="name" id="search-term">
+        <button>Search</button>
+      </form>
+      <form action="/collections/<%= collection._id %>/search">
+        <!--  <button type="submit" class="search-submit">Submit</button>
+          <input index="q" tabindex="1" type="text" name="q" placeholder="Buscar" autocomplete="off"> -->
+        <label for="search-author">Search for an item by author</label>
+        <input type="text" name="designer" id="search-author">
+        <button>Search</button>
+      </form>
+      <form action="/collections/<%= collection._id %>/search">
+        <!--  <button type="submit" class="search-submit">Submit</button>
+          <input index="q" tabindex="1" type="text" name="q" placeholder="Buscar" autocomplete="off"> -->
+        <label for="search-cheapest">Cheapest Items</label>
+        <input type="submit" name="cheapest" id="search-cheapest">
+      </form>
+      <form action="/collections/<%= collection._id %>/search">
+        <!--  <button type="submit" class="search-submit">Submit</button>
+          <input index="q" tabindex="1" type="text" name="q" placeholder="Buscar" autocomplete="off"> -->
+        <label for="search-expensive">Most Expensive Items</label>
+        <input type="submit" name="expensive" id="search-expensive">
+      </form>
+    </nav>
+  </div>
+</div>
+
+
+<div class="container-figures">
+  <% collection.figures.forEach( (figure) => { %>
+    <div class="container-figures-item">
       <ul class=figures-ul>
         <br>
         <li>
@@ -86,7 +92,7 @@
           <%= figure.personalNotes %>
         </li>
         <li class="figures-li">
-          <img src="<%= figure.image %>"/>
+          <img src="<%= figure.image %>" />
         </li>
         <li class="figures-li chk">
           <%= figure.favorite %>
@@ -97,11 +103,12 @@
       </ul>
       <div class="figures-options">
       </div>
+    </div>
       <% }) %>
         <p>
           <!-- ToDo: products-->
         </p>
-  </div>
+    
 </div>
 </div>
 
