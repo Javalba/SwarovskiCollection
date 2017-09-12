@@ -59,56 +59,58 @@
 <div class="container-figures">
   <% collection.figures.forEach( (figure) => { %>
     <div class="container-figures-item">
+        <i id="favorite" class="fa fa-star hidden"></i>
+      <li class="figures-img">
+        <img src="<%= figure.image %>" />
+      </li>
       <ul class=figures-ul>
         <br>
-        <li>
-          <a class="title" href="/collections/<%= collection._id %>/figures/<%=figure._id%>">
-            <span>Name: </span>
-            <%= figure.name %>
-          </a>
+        <li class="figures-li">
+          <span>Name: </span>
+          <span><%= figure.name %></span>
         </li>
         <li class="figures-li">
           <span>Available: </span>
-          <%= moment(figure.available).format( 'DD/MM/YYYY') %>
+          <span><%= moment(figure.available).format( 'DD/MM/YYYY') %></span>
         </li>
         <li class="figures-li">
           <span>Designer: </span>
-          <%= figure.designer %>
+          <span><%= figure.designer %></span>
         </li>
         <li class="figures-li">
           <span>Number: </span>
-          <%= figure.number %>
+          <span><%= figure.number %></span>
         </li>
         <li class="figures-li">
           <span>Collection: </span>
-          <%= figure.collection %>
+          <span><%= figure.collec %></span>
         </li>
         <li class="figures-li">
           <span>Adquisition Price: </span>
-          <%= `${figure.adquisitionPrice} €` %>
+          <span><%= `${figure.adquisitionPrice} €` %></span>
         </li>
         <li class="figures-li">
           <span>Personal Notes: </span>
-          <%= figure.personalNotes %>
+          <span><%= figure.personalNotes %></span>
         </li>
-        <li class="figures-li">
-          <img src="<%= figure.image %>" />
-        </li>
-        <li class="figures-li chk">
-          <%= figure.favorite %>
-        </li>
-        <li class="figures-li chk ">
-          <%= figure.sell %>
-        </li>
+
+<!-- ToDo: set favorite -->
+
       </ul>
       <div class="figures-options">
+        <ul>
+          <li><a class="btn" href="/collections/<%= collection._id %>/figures/<%=figure._id%>">EDIT</a></li>
+          <form action="/collections/<%= collection._id %>/figures/<%=figure._id%>/delete" method="POST">
+            <button class="btn">DELETE</button>
+          </form>
+        </ul>
       </div>
     </div>
-      <% }) %>
-        <p>
-          <!-- ToDo: products-->
-        </p>
-    
+    <% }) %>
+      <p>
+        <!-- ToDo: products-->
+      </p>
+
 </div>
 </div>
 

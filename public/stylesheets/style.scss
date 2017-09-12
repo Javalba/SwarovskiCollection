@@ -104,12 +104,12 @@ li {
   width: 100%;
 }
 
-.formulario button {
+.btn{
   font-size: 1.5rem;
   font-family: "Arapey", serif;
   margin-top: 20px;
   background: black;
-  border: $border-color;
+  border: #d1d1d1 1px solid;
   border-radius: 4px;
   color: #fff;
   cursor: pointer;
@@ -121,11 +121,13 @@ li {
   width: 100%;
 }
 
-.formulario button:hover {
+.btn:hover{
   background: #fff;
   color: black;
   transition: .3s ease background;
 }
+
+
 
 .container-options {
 
@@ -168,22 +170,59 @@ li {
 
 
   &-item {
+    position: relative;
     display: inline-block;
     flex-grow: 1;
     height: auto;
-    width: calc(100% * (1/4)); //display max 4 items per row.
-  }
+    width: calc(100% * (1/4) - 2.2rem); //display max 4 items per row
+    margin: 0.5rem;
+    padding: 0.5rem;
+    box-shadow: 0px 0px 30px 0px rgba(50, 50, 50, 0.22);
+    border: $border-color;
+    border-radius: 0.3rem;
 
-  .figures {
+    .figures-img>img {
+      max-width: 200px;
+      max-height: auto;
+      display: block;
+      margin: 0 auto;
+    }
+
+    .figures-li span:nth-child(even) {
+      float: right;
+      font-size: 20px;
+    }
+
+    .figures-li span:nth-child(odd) {
+      font-size: 21px;
+      font-weight: bold;
+    }
+
+    .figures-options{
+      margin-top: 1rem;
     
-        &-ul {
-          border: 1px solid black;
-        }
-        &-li>img {
-          max-width: 200px;
-          max-height: auto;
-        }
+      ul{
+        display: flex;
+        justify-content: space-between;
+        margin: 0;
+        padding: 0;
+        border-top: #d1d1d1 1px solid;
       }
+    }
+  }
+}
+
+
+.favorite{
+  position: absolute;
+  right: 50%;
+  color: yellow;
+  -webkit-text-stroke-width: 1px;
+  -webkit-text-stroke-color: #D08E15;
+}
+
+.hidden{
+  visibility: hidden;
 }
 
 
@@ -437,11 +476,23 @@ li {
   }
 
   .container-figures {
+
     &-item {
-      width: 100%; //display one item
+        width: 100%; //display one item
+  
+      .figures-li span:nth-child(even) {
+        float: right;
+        font-size: 20px;
+      }
+  
+      .figures-li span:nth-child(odd) {
+        font-size: 21px;
+        font-weight: bold;
+      }
     }
   }
 }
+
 
 /***********************************************************************
 ******                   MEDIUM ************
@@ -694,10 +745,28 @@ li {
 
   .container-figures {
     &-item {
-      width: calc(100% * (1/2)); //display max 4 items per row.
+      width: calc(100% * (1/2) - 2.2rem); //display max 2 items per row
+    }
+  }
+
+
+  .container-figures {
+    &-item {
+      width: calc(100% * (1/2) - 2.2rem); //display max 2 items per row
+      
+      .figures-li span:nth-child(even) {
+        float: right;
+        font-size: 20px;
+      }
+  
+      .figures-li span:nth-child(odd) {
+        font-size: 21px;
+        font-weight: bold;
+      }
     }
   }
 }
+
 
 
 /***********************************************************************
@@ -945,15 +1014,5 @@ li {
 
   .navigation>*:not(:first-child) {
     margin-left: 1.6rem;
-  }
-
-  .container-figures {
-    display: -webkit-box;
-    display: -moz-box;
-    display: -ms-flexbox;
-    display: -webkit-flex;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-around;
   }
 }

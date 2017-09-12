@@ -19,6 +19,18 @@ function toggleTopMenu() {
     }
 }
 
+function setFavorite(){
+        let favorite = document.getElementById('favorite')[0];
+
+        if (favorite.className === "fa fa-star hidden") {
+            favorite.className === "fa fa-star";
+            favorite.className += " favorite";
+        } else {
+            favorite.className = "topMenu-ul hidden";
+        }
+        
+}
+
 /* function toggleTopMenu() {
     console.log(`LLEGO AQUI`);
   var hamburguerExists = document.getElementsByClassName('topMenu-hamburguer');
