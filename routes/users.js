@@ -44,16 +44,19 @@ let emailReq = req.params.email;
     country: req.body.country,
     birthday: req.body.birthday,
   }
+
+  console.log(`REQ FILE-:::::::::->${util.inspect(req.file)}`);
   if(req.file){
     updates.avatar = `/uploads/profiles/${req.file.filename}`; 
   }
+  
   console.log(`res.locals.emailExists-->${res.locals.emailExists}`);
-  if(res.locals.emailExists){
+/*   if(res.locals.emailExists){ 
 
     //flash messages error, user exist and redirect
     console.log(`NO SE ACTUALIZA`);
     res.redirect(`/users/${emailReq}`);    
-  }else{
+  }else{ */
     console.log(`updates-->${JSON.stringify(updates)}`);
     /**
      * findOneAndUpdate([conditions], [update], [options], [callback])
@@ -66,7 +69,7 @@ let emailReq = req.params.email;
         res.redirect(`/users/${emailReq}`);
       }
     });
-  }
+  /* } */
 
 });
 
